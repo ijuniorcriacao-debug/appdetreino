@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1e1b4b">
+    <meta name="description" content="App offline para catequistas gerenciarem os encontros de catequese.">
+
+    <title>Encontros de Catequese</title>
+
+    <link rel="manifest" href="manifest-catequese.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Catequese">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✝</text></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
+        .slide-in { animation: slideIn 0.3s ease-out forwards; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-[#1e1b4b] text-white font-sans">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const Icon = ({ name, size = 24, className }) => {
+            if (typeof lucide === 'undefined' || !lucide.icons) return null;
+            const iconData = lucide.icons[name];
+            if (!iconData) return null;
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    {iconData.map(([tag, attrs], i) => React.createElement(tag, { ...attrs, key: i }))}
+                </svg>
+            );
+        };
+
+        const ENCONTROS = [
+            {
+                id: 'e1', numero: 1,
+                tema: 'Quem é Deus?', subtitulo: 'Conhecendo o nosso Pai Criador',
+                versiculo: '"No princípio, Deus criou os céus e a terra." — Gênesis 1:1',
+                objetivos: ['Apresentar Deus como Pai amoroso e criador de tudo', 'Despertar gratidão pela vida e pela criação'],
+                atividades: [
+                    { id: 'e1a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e1a2', nome: 'Dinâmica: O que Deus criou?' },
+                    { id: 'e1a3', nome: 'Leitura bíblica: Gênesis 1:1-10' },
+                    { id: 'e1a4', nome: 'Reflexão: Deus nos conhece pelo nome' },
+                    { id: 'e1a5', nome: 'Atividade: Carta para Deus' },
+                    { id: 'e1a6', nome: 'Oração de encerramento' },
+                ],
+                materiais: ['Bíblia', 'Folhas A4', 'Canetas', 'Envelope'],
+            },
+            {
+                id: 'e2', numero: 2,
+                tema: 'Jesus, o Filho de Deus', subtitulo: 'Nosso irmão e salvador',
+                versiculo: '"Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito." — João 3:16',
+                objetivos: ['Conhecer Jesus como Filho de Deus e irmão nosso', 'Compreender a missão de Jesus no mundo'],
+                atividades: [
+                    { id: 'e2a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e2a2', nome: 'Dinâmica: Quem é Jesus para você?' },
+                    { id: 'e2a3', nome: 'Leitura bíblica: Lucas 2:1-20 (Nascimento de Jesus)' },
+                    { id: 'e2a4', nome: 'Reflexão: Jesus como nosso amigo' },
+                    { id: 'e2a5', nome: 'Atividade: Painel sobre a vida de Jesus' },
+                    { id: 'e2a6', nome: 'Oração de encerramento' },
+                ],
+                materiais: ['Bíblia', 'Cartolina', 'Revistas', 'Cola', 'Tesoura'],
+            },
+            {
+                id: 'e3', numero: 3,
+                tema: 'O Espírito Santo', subtitulo: 'O Consolador que nos guia',
+                versiculo: '"O Espírito Santo, que o Pai enviará em meu nome, vos ensinará tudo." — João 14:26',
+                objetivos: ['Conhecer o Espírito Santo como terceira pessoa da Trindade', 'Compreender os dons do Espírito Santo'],
+                atividades: [
+                    { id: 'e3a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e3a2', nome: 'Dinâmica: O vento que não se vê' },
+                    { id: 'e3a3', nome: 'Leitura bíblica: Atos 2:1-13 (Pentecostes)' },
+                    { id: 'e3a4', nome: 'Estudo: Os 7 dons do Espírito Santo' },
+                    { id: 'e3a5', nome: 'Atividade: Pomba do Espírito Santo (recorte)' },
+                    { id: 'e3a6', nome: 'Oração ao Espírito Santo' },
+                ],
+                materiais: ['Bíblia', 'Papel sulfite', 'Lápis de cor', 'Tesoura'],
+            },
+            {
+                id: 'e4', numero: 4,
+                tema: 'A Igreja', subtitulo: 'Comunidade reunida por Deus',
+                versiculo: '"E sobre esta pedra edificarei a minha Igreja." — Mateus 16:18',
+                objetivos: ['Compreender a Igreja como comunidade de fé', 'Valorizar a participação na vida da comunidade'],
+                atividades: [
+                    { id: 'e4a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e4a2', nome: 'Visita à Igreja (se possível)' },
+                    { id: 'e4a3', nome: 'Explicação: Partes da Igreja e seu significado' },
+                    { id: 'e4a4', nome: 'Leitura bíblica: Atos 2:42-47' },
+                    { id: 'e4a5', nome: 'Dinâmica: Somos o Corpo de Cristo' },
+                    { id: 'e4a6', nome: 'Atividade: Minha paróquia' },
+                    { id: 'e4a7', nome: 'Oração de encerramento' },
+                ],
+                materiais: ['Bíblia', 'Folha com planta da Igreja', 'Canetas coloridas'],
+            },
+            {
+                id: 'e5', numero: 5,
+                tema: 'A Bíblia', subtitulo: 'A Palavra de Deus para nós',
+                versiculo: '"A tua palavra é lâmpada que ilumina os meus passos." — Salmos 119:105',
+                objetivos: ['Conhecer a Bíblia como Palavra de Deus', 'Aprender a navegar pelos livros da Bíblia'],
+                atividades: [
+                    { id: 'e5a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e5a2', nome: 'Apresentação: Antigo e Novo Testamento' },
+                    { id: 'e5a3', nome: 'Dinâmica: Caça às referências bíblicas' },
+                    { id: 'e5a4', nome: 'Leitura de Salmos favoritos em grupo' },
+                    { id: 'e5a5', nome: 'Atividade: Versículo favorito ilustrado' },
+                    { id: 'e5a6', nome: 'Oração com a Palavra de Deus' },
+                ],
+                materiais: ['Bíblia', 'Folhas A4', 'Lápis de cor', 'Marcadores'],
+            },
+            {
+                id: 'e6', numero: 6,
+                tema: 'A Oração', subtitulo: 'Conversa do coração com Deus',
+                versiculo: '"Orai sem cessar." — 1 Tessalonicenses 5:17',
+                objetivos: ['Compreender a oração como diálogo com Deus', 'Aprender diferentes formas de oração'],
+                atividades: [
+                    { id: 'e6a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e6a2', nome: 'Reflexão: O que é orar?' },
+                    { id: 'e6a3', nome: 'Ensino: O Pai Nosso explicado versículo a versículo' },
+                    { id: 'e6a4', nome: 'Dinâmica: Roda de oração' },
+                    { id: 'e6a5', nome: 'Prática: Oração espontânea em grupo' },
+                    { id: 'e6a6', nome: 'Atividade: Montar caderno de orações' },
+                    { id: 'e6a7', nome: 'Oração do Pai Nosso em conjunto' },
+                ],
+                materiais: ['Bíblia', 'Caderninho', 'Canetas'],
+            },
+            {
+                id: 'e7', numero: 7,
+                tema: 'Os Sacramentos', subtitulo: 'Sinais visíveis do amor de Deus',
+                versiculo: '"Portanto ide, fazei discípulos... batizando-os." — Mateus 28:19',
+                objetivos: ['Conhecer os 7 sacramentos da Igreja', 'Compreender os sacramentos como encontros com Deus'],
+                atividades: [
+                    { id: 'e7a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e7a2', nome: 'Apresentação: Os 7 sacramentos' },
+                    { id: 'e7a3', nome: 'Dinâmica: Sinais visíveis de amor' },
+                    { id: 'e7a4', nome: 'Reflexão: Qual sacramento já recebi?' },
+                    { id: 'e7a5', nome: 'Atividade: Mapa dos sacramentos' },
+                    { id: 'e7a6', nome: 'Oração de encerramento' },
+                ],
+                materiais: ['Bíblia', 'Cartolina', 'Post-its', 'Canetas'],
+            },
+            {
+                id: 'e8', numero: 8,
+                tema: 'O Batismo', subtitulo: 'O início da vida cristã',
+                versiculo: '"Quem crer e for batizado será salvo." — Marcos 16:16',
+                objetivos: ['Recordar o próprio Batismo e seu significado', 'Valorizar a vida como filho de Deus'],
+                atividades: [
+                    { id: 'e8a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e8a2', nome: 'Reflexão: Você lembra do seu Batismo?' },
+                    { id: 'e8a3', nome: 'Explicação: O rito do Batismo' },
+                    { id: 'e8a4', nome: 'Visita à pia batismal' },
+                    { id: 'e8a5', nome: 'Renovação das promessas batismais' },
+                    { id: 'e8a6', nome: 'Atividade: Certificado de Batismo personalizado' },
+                    { id: 'e8a7', nome: 'Oração de encerramento' },
+                ],
+                materiais: ['Bíblia', 'Cópia da certidão de batismo', 'Folhas', 'Canetas'],
+            },
+            {
+                id: 'e9', numero: 9,
+                tema: 'A Reconciliação', subtitulo: 'O perdão que liberta',
+                versiculo: '"Bem-aventurados os misericordiosos, pois obterão misericórdia." — Mateus 5:7',
+                objetivos: ['Compreender o Sacramento da Reconciliação', 'Preparar para a primeira confissão'],
+                atividades: [
+                    { id: 'e9a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e9a2', nome: 'Dinâmica: Quando erramos e pedimos perdão' },
+                    { id: 'e9a3', nome: 'Leitura: A parábola do Filho Pródigo (Lucas 15)' },
+                    { id: 'e9a4', nome: 'Explicação: O rito da Reconciliação' },
+                    { id: 'e9a5', nome: 'Exame de consciência guiado' },
+                    { id: 'e9a6', nome: 'Prática: Como fazer a confissão' },
+                    { id: 'e9a7', nome: 'Oração de contrição' },
+                ],
+                materiais: ['Bíblia', 'Folha do exame de consciência'],
+            },
+            {
+                id: 'e10', numero: 10,
+                tema: 'A Eucaristia', subtitulo: 'Preparação para a Primeira Comunhão',
+                versiculo: '"Eu sou o pão da vida. Quem vem a mim nunca terá fome." — João 6:35',
+                objetivos: ['Compreender profundamente o mistério da Eucaristia', 'Preparar o coração para a Primeira Comunhão'],
+                atividades: [
+                    { id: 'e10a1', nome: 'Acolhida e oração de abertura' },
+                    { id: 'e10a2', nome: 'Reflexão: A Última Ceia' },
+                    { id: 'e10a3', nome: 'Leitura bíblica: Lucas 22:14-20' },
+                    { id: 'e10a4', nome: 'Explicação: A Missa e seus momentos' },
+                    { id: 'e10a5', nome: 'Como receber a comunhão corretamente' },
+                    { id: 'e10a6', nome: 'Atividade: Carta para Jesus antes da 1ª Comunhão' },
+                    { id: 'e10a7', nome: 'Oração de preparação' },
+                    { id: 'e10a8', nome: 'Celebração especial com os pais' },
+                ],
+                materiais: ['Bíblia', 'Folha especial da 1ª Comunhão', 'Envelope', 'Vela'],
+            },
+        ];
+
+        const CORES = [
+            'border-l-violet-500', 'border-l-blue-500', 'border-l-cyan-500',
+            'border-l-teal-500', 'border-l-green-500', 'border-l-yellow-500',
+            'border-l-orange-500', 'border-l-red-500', 'border-l-pink-500', 'border-l-purple-500',
+        ];
+
+        const App = () => {
+            const [view, setView] = React.useState('login');
+            const [userName, setUserName] = React.useState('');
+            const [tempName, setTempName] = React.useState('');
+            const [catequizandos, setCatequizandos] = React.useState([]);
+            const [presenca, setPresenca] = React.useState({});
+            const [atividades, setAtividades] = React.useState({});
+            const [notas, setNotas] = React.useState({});
+            const [encontroAtivo, setEncontroAtivo] = React.useState(null);
+            const [novoNome, setNovoNome] = React.useState('');
+
+            React.useEffect(() => {
+                const u = localStorage.getItem('catq_user');
+                if (u) { setUserName(u); setView('home'); }
+                const c = localStorage.getItem('catq_catequizandos');
+                if (c) setCatequizandos(JSON.parse(c));
+                const p = localStorage.getItem('catq_presenca');
+                if (p) setPresenca(JSON.parse(p));
+                const a = localStorage.getItem('catq_atividades');
+                if (a) setAtividades(JSON.parse(a));
+                const n = localStorage.getItem('catq_notas');
+                if (n) setNotas(JSON.parse(n));
+            }, []);
+
+            const salvarCatequizandos = (c) => { setCatequizandos(c); localStorage.setItem('catq_catequizandos', JSON.stringify(c)); };
+            const salvarPresenca = (p) => { setPresenca(p); localStorage.setItem('catq_presenca', JSON.stringify(p)); };
+            const salvarAtividades = (a) => { setAtividades(a); localStorage.setItem('catq_atividades', JSON.stringify(a)); };
+            const salvarNotas = (n) => { setNotas(n); localStorage.setItem('catq_notas', JSON.stringify(n)); };
+
+            const handleLogin = (e) => {
+                e.preventDefault();
+                if (!tempName.trim()) return;
+                localStorage.setItem('catq_user', tempName.trim());
+                setUserName(tempName.trim());
+                setView('home');
+            };
+
+            const handleLogout = () => {
+                if (!confirm('Deseja sair?')) return;
+                localStorage.removeItem('catq_user');
+                setUserName(''); setTempName(''); setView('login');
+            };
+
+            const handleReset = () => {
+                if (!confirm('ATENÇÃO: Isso apagará TODOS os seus dados. Tem certeza?')) return;
+                localStorage.clear(); window.location.reload();
+            };
+
+            const adicionarCatequizando = () => {
+                if (!novoNome.trim()) return;
+                salvarCatequizandos([...catequizandos, { id: `c_${Date.now()}`, nome: novoNome.trim() }]);
+                setNovoNome('');
+            };
+
+            const removerCatequizando = (id) => {
+                if (!confirm('Remover catequizando?')) return;
+                salvarCatequizandos(catequizandos.filter(c => c.id !== id));
+            };
+
+            const togglePresenca = (encontroId, catId) => {
+                const nova = { ...presenca, [encontroId]: { ...presenca[encontroId], [catId]: !presenca[encontroId]?.[catId] } };
+                salvarPresenca(nova);
+            };
+
+            const toggleAtividade = (encontroId, atividadeId) => {
+                const nova = { ...atividades, [encontroId]: { ...atividades[encontroId], [atividadeId]: !atividades[encontroId]?.[atividadeId] } };
+                salvarAtividades(nova);
+            };
+
+            const atualizarNota = (encontroId, valor) => {
+                salvarNotas({ ...notas, [encontroId]: valor });
+            };
+
+            const getProgresso = (encontroId, listaAtividades) => {
+                if (!listaAtividades?.length) return 0;
+                const feitas = listaAtividades.filter(a => atividades[encontroId]?.[a.id]).length;
+                return Math.round((feitas / listaAtividades.length) * 100);
+            };
+
+            const getPresentes = (encontroId) =>
+                Object.values(presenca[encontroId] || {}).filter(Boolean).length;
+
+            const concluidos = ENCONTROS.filter(e => getProgresso(e.id, e.atividades) === 100).length;
+            const encontro = ENCONTROS.find(e => e.id === encontroAtivo);
+
+            // LOGIN
+            if (view === 'login') return (
+                <div className="min-h-screen bg-[#1e1b4b] flex flex-col items-center justify-center p-6 fade-in">
+                    <div className="mb-4 text-6xl select-none">✝</div>
+                    <h1 className="text-3xl font-bold mb-2 text-center">Encontros de Catequese</h1>
+                    <p className="text-indigo-300 mb-10 text-center text-sm max-w-xs">App offline para catequistas. Seus dados ficam no seu dispositivo.</p>
+                    <form onSubmit={handleLogin} className="w-full max-w-xs space-y-4">
+                        <input
+                            type="text" value={tempName} onChange={e => setTempName(e.target.value)}
+                            placeholder="Nome do(a) Catequista" autoFocus
+                            className="w-full bg-indigo-900/50 border border-indigo-700 rounded-xl p-4 text-white placeholder-indigo-400 focus:border-violet-500 outline-none"
+                        />
+                        <button
+                            type="submit" disabled={!tempName.trim()}
+                            className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-xl disabled:opacity-50 transition-colors"
+                        >
+                            Entrar
+                        </button>
+                    </form>
+                </div>
+            );
+
+            return (
+                <div className="min-h-screen bg-[#1e1b4b] pb-24 fade-in">
+                    {/* HEADER */}
+                    <header className="sticky top-0 z-20 bg-[#1e1b4b]/90 backdrop-blur-md border-b border-indigo-800/50 p-4">
+                        <div className="flex items-center justify-between max-w-md mx-auto">
+                            {view === 'home' ? (
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xl select-none">✝</span>
+                                    <span className="font-bold text-sm">Olá, {userName}</span>
+                                </div>
+                            ) : (
+                                <button onClick={() => setView('home')} className="text-indigo-300 hover:text-white p-1">
+                                    <Icon name="ChevronLeft" />
+                                </button>
+                            )}
+                            <div className="flex items-center gap-1">
+                                {view === 'home' && (
+                                    <>
+                                        <button onClick={() => setView('catequizandos')} className="p-2 text-indigo-400 hover:text-violet-400 transition-colors">
+                                            <Icon name="Users" size={20} />
+                                        </button>
+                                        <button onClick={() => setView('config')} className="p-2 text-indigo-400 hover:text-violet-400 transition-colors">
+                                            <Icon name="Settings" size={20} />
+                                        </button>
+                                    </>
+                                )}
+                                {view === 'encontro' && encontro && (
+                                    <span className="text-sm font-bold text-indigo-200">Encontro {encontro.numero}</span>
+                                )}
+                                {view === 'catequizandos' && <span className="text-sm font-bold text-indigo-200">Catequizandos</span>}
+                                {view === 'config' && <span className="text-sm font-bold text-indigo-200">Configurações</span>}
+                            </div>
+                        </div>
+                    </header>
+
+                    <main className="max-w-md mx-auto p-4 space-y-4">
+
+                        {/* ===== HOME ===== */}
+                        {view === 'home' && (
+                            <div className="space-y-3 slide-in">
+                                {/* Stats */}
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-indigo-900/40 border border-indigo-800/40 rounded-xl p-4">
+                                        <p className="text-indigo-400 text-xs mb-1">Catequizandos</p>
+                                        <p className="text-white font-bold text-2xl">{catequizandos.length}</p>
+                                    </div>
+                                    <div className="bg-indigo-900/40 border border-indigo-800/40 rounded-xl p-4">
+                                        <p className="text-indigo-400 text-xs mb-1">Concluídos</p>
+                                        <p className="text-white font-bold text-2xl">{concluidos}<span className="text-indigo-500 text-sm font-normal">/{ENCONTROS.length}</span></p>
+                                    </div>
+                                </div>
+
+                                <p className="text-indigo-400 text-xs font-bold uppercase tracking-widest pt-1">Encontros</p>
+
+                                {ENCONTROS.map((e, i) => {
+                                    const prog = getProgresso(e.id, e.atividades);
+                                    const pres = getPresentes(e.id);
+                                    return (
+                                        <button
+                                            key={e.id}
+                                            onClick={() => { setEncontroAtivo(e.id); setView('encontro'); }}
+                                            className={`w-full bg-indigo-900/40 border border-indigo-800/40 border-l-4 ${CORES[i % CORES.length]} p-4 rounded-r-xl rounded-l-md flex justify-between items-center active:scale-[0.98] transition-transform text-left`}
+                                        >
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-2 mb-0.5">
+                                                    <span className="text-[10px] text-indigo-500 font-mono">#{e.numero}</span>
+                                                    <h3 className="font-bold text-sm text-white truncate">{e.tema}</h3>
+                                                </div>
+                                                <p className="text-xs text-indigo-400 truncate">{e.subtitulo}</p>
+                                                {(prog > 0 || pres > 0) && (
+                                                    <div className="flex items-center gap-3 mt-2">
+                                                        {prog > 0 && (
+                                                            <div className="flex items-center gap-1.5">
+                                                                <div className="h-1 w-14 bg-indigo-800 rounded-full overflow-hidden">
+                                                                    <div className="h-full bg-violet-500 rounded-full" style={{ width: `${prog}%` }} />
+                                                                </div>
+                                                                <span className="text-[10px] text-indigo-400">{prog}%</span>
+                                                            </div>
+                                                        )}
+                                                        {pres > 0 && (
+                                                            <span className="text-[10px] text-indigo-400 flex items-center gap-1">
+                                                                <Icon name="Users" size={10} /> {pres}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <Icon
+                                                name={prog === 100 ? 'CheckCircle' : 'ChevronRight'}
+                                                size={16}
+                                                className={prog === 100 ? 'text-green-500 flex-shrink-0 ml-2' : 'text-indigo-600 flex-shrink-0 ml-2'}
+                                            />
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        )}
+
+                        {/* ===== ENCONTRO ===== */}
+                        {view === 'encontro' && encontro && (
+                            <div className="space-y-4 slide-in">
+                                {/* Cabeçalho */}
+                                <div className="bg-gradient-to-br from-violet-900/60 to-indigo-900/60 rounded-2xl p-5 border border-violet-700/30">
+                                    <span className="text-xs font-bold text-violet-400 bg-violet-900/60 px-2 py-0.5 rounded-full">Encontro {encontro.numero}</span>
+                                    <h2 className="text-xl font-bold text-white mt-2 mb-1">{encontro.tema}</h2>
+                                    <p className="text-indigo-300 text-sm">{encontro.subtitulo}</p>
+                                </div>
+
+                                {/* Versículo */}
+                                <div className="bg-indigo-900/30 rounded-xl p-4 border border-indigo-800/30">
+                                    <p className="text-[10px] text-violet-400 font-bold mb-2 flex items-center gap-1 uppercase tracking-wider">
+                                        <Icon name="BookOpen" size={11} /> Versículo
+                                    </p>
+                                    <p className="text-indigo-200 text-sm italic leading-relaxed">{encontro.versiculo}</p>
+                                </div>
+
+                                {/* Objetivos */}
+                                <div className="bg-indigo-900/30 rounded-xl p-4 border border-indigo-800/30">
+                                    <p className="text-[10px] text-violet-400 font-bold mb-3 flex items-center gap-1 uppercase tracking-wider">
+                                        <Icon name="Target" size={11} /> Objetivos
+                                    </p>
+                                    <ul className="space-y-2">
+                                        {encontro.objetivos.map((obj, i) => (
+                                            <li key={i} className="flex items-start gap-2 text-sm text-indigo-200">
+                                                <span className="text-violet-400 mt-0.5 flex-shrink-0">•</span>
+                                                {obj}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                {/* Atividades */}
+                                <div className="bg-indigo-900/30 rounded-xl p-4 border border-indigo-800/30">
+                                    <p className="text-[10px] text-violet-400 font-bold mb-3 flex items-center gap-1 uppercase tracking-wider">
+                                        <Icon name="CheckSquare" size={11} /> Atividades
+                                    </p>
+                                    <div className="space-y-2">
+                                        {encontro.atividades.map(atv => {
+                                            const feita = atividades[encontro.id]?.[atv.id];
+                                            return (
+                                                <button
+                                                    key={atv.id}
+                                                    onClick={() => toggleAtividade(encontro.id, atv.id)}
+                                                    className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors text-left ${feita ? 'bg-green-900/20 border border-green-800/30' : 'bg-indigo-950/50 border border-indigo-800/20'}`}
+                                                >
+                                                    <Icon name={feita ? 'CheckCircle2' : 'Circle'} size={18} className={feita ? 'text-green-500 flex-shrink-0' : 'text-indigo-600 flex-shrink-0'} />
+                                                    <span className={`text-sm ${feita ? 'text-green-400/60 line-through' : 'text-indigo-100'}`}>{atv.nome}</span>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                    <div className="mt-3">
+                                        <div className="h-1.5 bg-indigo-800 rounded-full overflow-hidden">
+                                            <div
+                                                className="h-full bg-gradient-to-r from-violet-500 to-blue-500 rounded-full transition-all duration-500"
+                                                style={{ width: `${getProgresso(encontro.id, encontro.atividades)}%` }}
+                                            />
+                                        </div>
+                                        <p className="text-[10px] text-indigo-500 mt-1 text-right">
+                                            {getProgresso(encontro.id, encontro.atividades)}% concluído
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Materiais */}
+                                <div className="bg-indigo-900/30 rounded-xl p-4 border border-indigo-800/30">
+                                    <p className="text-[10px] text-violet-400 font-bold mb-3 flex items-center gap-1 uppercase tracking-wider">
+                                        <Icon name="Package" size={11} /> Materiais Necessários
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {encontro.materiais.map((mat, i) => (
+                                            <span key={i} className="text-xs bg-indigo-950/60 border border-indigo-800/30 text-indigo-300 px-2.5 py-1 rounded-full">{mat}</span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Presença */}
+                                <div className="bg-indigo-900/30 rounded-xl p-4 border border-indigo-800/30">
+                                    <p className="text-[10px] text-violet-400 font-bold mb-1 flex items-center gap-1 uppercase tracking-wider">
+                                        <Icon name="Users" size={11} /> Presença
+                                    </p>
+                                    {catequizandos.length === 0 ? (
+                                        <div className="text-center py-4">
+                                            <p className="text-indigo-500 text-sm">Nenhum catequizando cadastrado.</p>
+                                            <button onClick={() => setView('catequizandos')} className="text-violet-400 text-xs mt-1 underline">
+                                                Adicionar catequizandos
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <p className="text-indigo-500 text-[10px] mb-3">
+                                                {getPresentes(encontro.id)} de {catequizandos.length} presentes
+                                            </p>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {catequizandos.map(cat => {
+                                                    const presente = presenca[encontro.id]?.[cat.id];
+                                                    return (
+                                                        <button
+                                                            key={cat.id}
+                                                            onClick={() => togglePresenca(encontro.id, cat.id)}
+                                                            className={`flex items-center gap-2 p-2.5 rounded-lg text-left transition-colors ${presente ? 'bg-green-900/30 border border-green-700/40' : 'bg-indigo-950/50 border border-indigo-800/20'}`}
+                                                        >
+                                                            <Icon name={presente ? 'UserCheck' : 'User'} size={14} className={presente ? 'text-green-400 flex-shrink-0' : 'text-indigo-600 flex-shrink-0'} />
+                                                            <span className={`text-xs truncate ${presente ? 'text-green-300' : 'text-indigo-400'}`}>{cat.nome}</span>
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+
+                                {/* Observações */}
+                                <div className="bg-indigo-900/30 rounded-xl p-4 border border-indigo-800/30">
+                                    <p className="text-[10px] text-violet-400 font-bold mb-3 flex items-center gap-1 uppercase tracking-wider">
+                                        <Icon name="FileText" size={11} /> Observações
+                                    </p>
+                                    <textarea
+                                        value={notas[encontro.id] || ''}
+                                        onChange={e => atualizarNota(encontro.id, e.target.value)}
+                                        placeholder="Como foi o encontro? Anote observações, pontos a melhorar..."
+                                        className="w-full h-28 bg-indigo-950/50 border border-indigo-800/30 rounded-lg p-3 text-sm text-indigo-200 placeholder-indigo-600 focus:border-violet-600 outline-none resize-none"
+                                    />
+                                </div>
+                                <div className="h-2" />
+                            </div>
+                        )}
+
+                        {/* ===== CATEQUIZANDOS ===== */}
+                        {view === 'catequizandos' && (
+                            <div className="space-y-4 slide-in">
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text" value={novoNome}
+                                        onChange={e => setNovoNome(e.target.value)}
+                                        onKeyDown={e => e.key === 'Enter' && adicionarCatequizando()}
+                                        placeholder="Nome do catequizando"
+                                        className="flex-1 bg-indigo-900/40 border border-indigo-700 rounded-xl p-3 text-white placeholder-indigo-500 focus:border-violet-500 outline-none text-sm"
+                                    />
+                                    <button
+                                        onClick={adicionarCatequizando} disabled={!novoNome.trim()}
+                                        className="bg-violet-600 hover:bg-violet-700 text-white px-4 rounded-xl disabled:opacity-50 transition-colors flex-shrink-0"
+                                    >
+                                        <Icon name="Plus" size={20} />
+                                    </button>
+                                </div>
+
+                                {catequizandos.length === 0 ? (
+                                    <div className="text-center py-16">
+                                        <p className="text-4xl mb-3 select-none">👥</p>
+                                        <p className="text-indigo-400">Nenhum catequizando cadastrado.</p>
+                                        <p className="text-indigo-600 text-sm mt-1">Digite o nome acima e pressione Enter.</p>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-2">
+                                        {catequizandos.map((cat, i) => (
+                                            <div key={cat.id} className="bg-indigo-900/40 border border-indigo-800/40 rounded-xl p-4 flex items-center justify-between">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 bg-violet-800/50 rounded-full flex items-center justify-center text-xs font-bold text-violet-300 flex-shrink-0">
+                                                        {i + 1}
+                                                    </div>
+                                                    <span className="text-white text-sm">{cat.nome}</span>
+                                                </div>
+                                                <button onClick={() => removerCatequizando(cat.id)} className="text-indigo-700 hover:text-red-500 transition-colors p-1">
+                                                    <Icon name="Trash2" size={16} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                        <p className="text-center text-indigo-500 text-xs pt-1">
+                                            {catequizandos.length} catequizando{catequizandos.length !== 1 ? 's' : ''}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* ===== CONFIG ===== */}
+                        {view === 'config' && (
+                            <div className="space-y-4 slide-in">
+                                <div className="bg-indigo-900/30 rounded-xl p-4 border border-indigo-800/30 space-y-1">
+                                    <p className="text-indigo-400 text-xs">Catequista</p>
+                                    <p className="text-white font-bold">{userName}</p>
+                                </div>
+                                <div className="bg-indigo-900/30 rounded-xl p-4 border border-indigo-800/30 space-y-1">
+                                    <p className="text-indigo-400 text-xs">Progresso</p>
+                                    <p className="text-white font-bold">{concluidos} de {ENCONTROS.length} encontros concluídos</p>
+                                    <p className="text-indigo-400 text-sm">{catequizandos.length} catequizandos cadastrados</p>
+                                </div>
+                                <button onClick={handleLogout} className="w-full border border-indigo-800 py-3 rounded-xl text-indigo-400 font-bold flex justify-center gap-2 hover:border-indigo-600 transition-colors">
+                                    <Icon name="LogOut" /> Sair
+                                </button>
+                                <button onClick={handleReset} className="w-full border border-red-900/40 text-red-700 py-3 rounded-xl font-bold flex justify-center gap-2 hover:border-red-700 transition-colors">
+                                    <Icon name="Trash2" /> Reset Total
+                                </button>
+                            </div>
+                        )}
+
+                    </main>
+                </div>
+            );
+        };
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(r => console.log('SW OK', r))
+                    .catch(e => console.error('SW falhou', e));
+            });
+        }
+    </script>
+</body>
+</html>
