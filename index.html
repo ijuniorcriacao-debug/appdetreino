@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0a0a0a">
-    <meta name="description" content="Seu app de treino pessoal offline.">
-    
+    <meta name="description" content="Seu app de treino, nutrição e evolução física pessoal offline.">
+
     <title>O treino no jeito</title>
-    
+
     <!-- Link para o Manifesto PWA -->
     <link rel="manifest" href="manifest.json">
-    
+
     <!-- Configurações iOS -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="O treino no jeito">
-    
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23000000%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2270%22>💪</text></svg>">
 
@@ -34,6 +34,7 @@
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.6; }
     </style>
 </head>
 <body class="bg-neutral-950 text-white font-sans selection:bg-red-600 selection:text-white">
@@ -52,142 +53,350 @@
             );
         };
 
-        // --- DADOS DO TREINO (Seus 6 treinos configurados) ---
-        const INITIAL_WORKOUTS = [
-          {
-            id: 't1',
-            name: 'TREINO 1 - COSTAS - TRAPÉZIO – BICEPS',
-            exercises: [
-              { id: 't1e1', name: 'Remada CAVALINHO', sets: '4 X 10', note: 'CARGA MEDIANA COM FOCO NO CONTROLE DO MOVIMENTO E CONTRAÇÃO – ISOMETRIA DE 1s EM CADA REP' },
-              { id: 't1e2', name: 'Puxada FECHADA no pulley barra', sets: '4 X 12', note: 'PROGRESÃO DE CARGA E CONTROLE TOTAL DO MOVIMENTO' },
-              { id: 't1e3', name: 'Puxada pela frente com o triângulo', sets: '4 X 12', note: 'PROGRESSÃO DE CARGA – CARGAS ALTAS , MOVIMENTO COMPLETO' },
-              { id: 't1e4', name: 'Remada na máquina de cabos', sets: '4 X 10', note: 'PUXADA BAIXA - UNILATERAL • CARGAS ALTAS, FOCAR NA CONTRAÇÃO E ISOMETRIA DE 2s EM CADA REP' },
-              { id: 't1e5', name: 'TERRA', sets: '4 X 12', note: 'CONTROLE TOTAL DO MOVIMENTO, FOCO NA POSTURA E PROGRESSÃO DE CARGA SEMANAL' },
-              { id: 't1e6', name: 'Encolhimento barra', sets: '4 X 10', note: 'CARGA ALTA COM CONTROLE DO MOVIMENTO' },
-              { id: 't1e7', name: 'Bíceps barra W na polia', sets: '4 X 10', note: 'BISET • FOCAR NA CONTRAÇÃO E EXTENSÃO DO MOVIMENTO' },
-              { id: 't1e8', name: 'Rosca martelo com HALTERES', sets: '4 X 10', note: 'BISET • DROP • CARGA ALTA COM BOA AMPLITUDE – DROP DE 30% DA CARGA NAS ULTIMAS 2 SÉRIES' }
-            ]
-          },
-          {
-            id: 't2',
-            name: 'TREINO 2 - PEITO – TRICPES',
-            exercises: [
-              { id: 't2e1', name: 'Crossover com pega alta', sets: '4 X 10', note: 'MOVIMENTO AMPLO E CONTROLADO FOCANDO NA PROGRESÃO DE CARGA' },
-              { id: 't2e2', name: 'Crossover com pega baixa', sets: '4 X 10', note: 'MOVIMENTO AMPLO E CONTROLADO FOCANDO NA PROGRESÃO DE CARGA' },
-              { id: 't2e3', name: 'Supino inclinado Halteres', sets: '4 X 10', note: 'CARGA MODERADA/ ALTA – FOCANDO SEMPRE EM ESMAGAR O PEITROAL E CONTRAIR BEM NAS REP' },
-              { id: 't2e4', name: 'Supino inclinado banco no Cross', sets: '4 X 10', note: 'PROGRESÃO DE CARGAS ALTAS + ISOMETRIA DE 2s EM CADA REP' },
-              { id: 't2e5', name: 'Supino reto máquina ( ou livre )', sets: '4 X 10', note: 'PROGRESÃO DE CARGA – ISOMETRIA DE 10s NA ULTIMA REP DE CADA SÉRIE' },
-              { id: 't2e6', name: 'Voador', sets: '4 X 10', note: 'CARGA MÁXIMA CONTROLANDO BEM NA VOLTA E EXPREMENDO O MIOLO DE PEITO – ISOMETRIA DE 10s NA ULTIMA REP DE CADA SÉRIE' },
-              { id: 't2e7', name: 'Tríceps corda na polia', sets: '4 X 12', note: 'BISET • DROP • 1 DROP DE 50% DA CARGA EM CADA SÉRIE' },
-              { id: 't2e8', name: 'Tríceps francês', sets: '4 X 12', note: 'BISET • CONTROLE DO MOVIMENTO – PROGRESSÃO DE CARGA' },
-              { id: 't2e9', name: 'Máquina de ABS', sets: '4 x 12', note: 'CONTROLE TOTAL DO MOVIMENTO' }
-            ]
-          },
-          {
-            id: 't3',
-            name: 'TREINO 3 - QUADRICEPS – ADUTOR – PANTURRILHA...',
-            exercises: [
-              { id: 't3e1', name: 'Cadeira extensora', sets: '4 X 20', note: 'PROGRESÃO DE CARGA E CONTROLE TOTAL DO MOVIMENTO' },
-              { id: 't3e2', name: 'Agachamento', sets: '3 x 12', note: 'MOVIMENTO COMPLETO COM PROGRESÃO DE CARGA – SEMANAL' },
-              { id: 't3e3', name: 'Agachamento sumo', sets: '3 x 12', note: 'MOVIMENTO CONTROLADO – CARGA MODERADA FOCANDO NA CONTRAÇÃO TOTAL DO MOVIMENTO' },
-              { id: 't3e4', name: 'Leg Press 45', sets: '4 X 12', note: 'PÉS + ANGULADOS PARA DENTRO PARA MAIOR ATIVAÇÃO DOS QUADRICEPS – PROGRESSÃO DE CARGAS ALTAS' },
-              { id: 't3e5', name: 'Cadeira adutora', sets: '3 X 15', note: 'BISET • DROP • FORCAR NA EXAUSTÃO, 1 DROP DE 50% DA CARGA EM CADA SÉRIE' },
-              { id: 't3e6', name: 'Cadeira abdutora', sets: '3 X 15', note: 'BISET • DROP • FORCAR NA EXAUSTÃO, 1 DROP DE 50% DA CARGA EM CADA SÉRIE' },
-              { id: 't3e7', name: 'Panturrilha no Leg com carga', sets: '5 x 15', note: 'DROP • SEM DESCANÇO ENTRE AS SÉRIES... TODA SÉRIE 1 DROP DE CARGA' },
-              { id: 't3e8', name: 'Flexora deitada ou sentada', sets: '3 X 12', note: 'BISET • DROP • FORCAR NA EXAUSTÃO, 1 DROP DE 50% DA CARGA EM CADA SÉRIE' },
-              { id: 't3e9', name: 'Stiff', sets: '3 X 12', note: 'BISET • FOCAR NA PROGRESÃO DE CARGA COM ISOMETRIA DE 2 S EM CADA REP' },
-              { id: 't3e10', name: 'Elevação pélvica', sets: '4 X 12', note: 'DROP • FORCAR NA EXAUSTÃO, 1 DROP DE 50% DA CARGA EM CADA SÉRIE' }
-            ]
-          },
-          {
-            id: 't4',
-            name: 'TREINO 4 - OMBRO – TRICPES',
-            exercises: [
-              { id: 't4e1', name: 'Desenvolvimento LIVRE', sets: '4 X 12', note: 'PROGRESSÃO DE CARGAS, CONTROLE TOTAL DO MOVIMENTO' },
-              { id: 't4e2', name: 'Elevação lateral na polia', sets: '4 X 12', note: 'PROGRESSÃO DE CARGAS, CONTROLE TOTAL DO MOVIMENTO' },
-              { id: 't4e3', name: 'Elevação frontal polia (corda)', sets: '4 X 12', note: 'PROGRESSÃO DE CARGAS, MOVIMENTO SÓLIDO, 2 S DE ISOMETRIA EM CADA REP' },
-              { id: 't4e4', name: 'Voador inverso', sets: '4 x 12', note: 'PROGRESSÃO DE CARGAS, MOVIMENTO SÓLIDO, 2 S DE ISOMETRIA EM CADA REP' },
-              { id: 't4e5', name: 'Tríceps corda na polia', sets: '4 x 12', note: 'BISET • PRGRESÃO DE CARGA ENTRE AS SÉRIES – CARGAS ALTAS' },
-              { id: 't4e6', name: 'Tríceps barra RETA na polia', sets: '4 X 12', note: 'BISET • DROP • DROP DUPLO DE 25% DA CARGA TOTAL EM CADA DROP – FAZER ISSO NAS 4 SÉRIES' },
-              { id: 't4e7', name: 'Tripes corda unilateral', sets: '4 x 12', note: 'FOCAR NA CONTRAÇÃO DO MOVIMENTO E PROGRESÃO DE CARGA' },
-              { id: 't4e8', name: 'Encolhimento barra', sets: '4 X 10', note: 'CARGA ALTA COM CONTROLE DO MOVIMENTO' }
-            ]
-          },
-          {
-            id: 't5',
-            name: 'TREINO 5 - COSTAS – BÍCPES',
-            exercises: [
-              { id: 't5e1', name: 'Puxada fechada no pulley', sets: '4 X 12', note: 'DROP • DROP DE 25% DA CARGA TOTAL EM CADA SÉRIE – CARGAS ALTAS' },
-              { id: 't5e2', name: 'Puxada pela frente com o triângulo', sets: '4 X 12', note: 'PROGRESSÃO DE CARGAS, ISOMETIRA DE 2 S EM CADA REP' },
-              { id: 't5e3', name: 'Remada bai xa com o triangulo', sets: '3 x 15', note: 'CARGA ALTA – PROGRESSÃO SEMANAL' },
-              { id: 't5e4', name: 'Serrote unilateral na polia', sets: '3 X 15', note: 'PROGRESÃO DE CARGA + CONTROLE DA AMPLITUDE DO MOVIMENTO' },
-              { id: 't5e5', name: 'Terra', sets: '4 x 10', note: 'PROGRESSÃO DE CARGAS SEMANAIS – CONTROLE TOTAL DO MOVIMENTO' },
-              { id: 't5e6', name: 'Crucifixo em X no Cross Bilateral', sets: '4 X 12', note: 'PROGRESSÃO DE CARGAS, BOA CONTRAÇÃO DO MOVIMENTO E CONTROLE DA VOLTA' },
-              { id: 't5e7', name: 'Rosca ARNOLD', sets: '4 X 12', note: 'BISET • PROGRESÃO DE CARGAS + CONTROLE TOTAL DO MOVIMENTO – SEM ROUBAR' },
-              { id: 't5e8', name: 'Maquina de bíceps', sets: '4 X 12', note: 'BISET • DROP • CONTROLE TOTAL DO MOVIMENTO COM DROP DE 50% DA CARGA MÁXIMA – NA ULTIMA SÉRIE' },
-              { id: 't5e9', name: 'ABS MILITAR ( Livre )', sets: '4 x 15', note: 'CONTROLE TOTAL DO MOVIMENTO' }
-            ]
-          },
-          {
-            id: 't6',
-            name: 'TREINO 6 - QUADRICEPS – ADUTOR – PANTURRILHA...',
-            exercises: [
-              { id: 't6e1', name: 'Cadeira extensora', sets: '5 X 12', note: 'DROP • DROP DUPLO DE 25% DA CARGA TOTAL EM CADA DROP – FAZER ISSO NAS 6 SÉRIES' },
-              { id: 't6e2', name: 'Agachamento livre', sets: '4 X 12', note: 'FOCAR NO CONTROLE DO MOVIMENTO E AMPLITUDE E PROGREÃO DE CARGA SEMANAL' },
-              { id: 't6e3', name: 'Hack squat', sets: '4 X 12', note: 'DROP • DROP DUPLO DE 25% DA CARGA TOTAL EM CADA DROP – FAZER ISSO NAS 4 SÉRIES' },
-              { id: 't6e4', name: 'Elevação pélvica', sets: '4 x 12', note: 'PROGRESSÃO DE CARGA E CONTROLE TOTAL DO MOVIMENTO – ISOMETRIA DE 2s EM CADA REP' },
-              { id: 't6e5', name: 'Afundo', sets: '4 x 12', note: 'CONTROLE TOTAL DO MOVIMENTO E PROGRESSÃO DE CARGA SEMANAL' },
-              { id: 't6e6', name: 'Cadeira adutora', sets: '2 X 20', note: 'BISET • FOCAR NA EXAUSTÃO MÁXIMA' },
-              { id: 't6e7', name: 'Cadeira abdutora', sets: '2 X 20', note: 'BISET • FOCAR NA EXAUSTÃO MÁXIMA' },
-              { id: 't6e8', name: 'Panturrilha sentada', sets: '4 X 15', note: 'FOCAR NA EXAUSTÃO MÁXIMA, COM BOA AMPLITUDE SEMPRE' },
-              { id: 't6e9', name: 'Panturrilha no Leg com carga', sets: '3 X 12', note: 'FOCAR NA EXAUSTÃO MÁXIMA E ISOMETRIA DE 2 S EM CADA REP' },
-              { id: 't6e10', name: 'ABS MILITAR ( Livre )', sets: '4 x 15', note: 'CONTROLE TOTAL DO MOVIMENTO' }
-            ]
-          }
+        // --- UTILITÁRIOS ---
+        const uid = (p = 'id') => `${p}_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+        const todayISO = () => new Date().toISOString().slice(0, 10);
+        const addDaysISO = (iso, delta) => { const d = new Date(iso + 'T00:00:00'); d.setDate(d.getDate() + delta); return d.toISOString().slice(0, 10); };
+        const fmtBR = (iso) => { if (!iso) return ''; const [y, m, d] = iso.split('-'); return `${d}/${m}/${y}`; };
+        const parseNum = (v) => (v === '' || v === null || v === undefined) ? null : (isNaN(parseFloat(v)) ? null : parseFloat(v));
+        const makeEmptyNutriForm = (date) => ({ data: date || todayISO(), peso_manha: '', kcal: '', proteina: '', carbo: '', gordura: '', agua_ml: '', humor: 3, energia: 3, sono_horas: '', observacoes: '' });
+
+        // --- PALETA (dados) ---
+        const COLORS = {
+            blue: '#3987e5', orange: '#d95926', aqua: '#199e70', yellow: '#c98500',
+            magenta: '#d55181', green: '#008300', violet: '#9085e9', red: '#e66767',
+            good: '#0ca30c', warning: '#fab219', serious: '#ec835a', critical: '#d03b3b',
+            grid: '#2c2c2a', muted: '#898781', axis: '#383835',
+        };
+
+        // --- PROTOCOLO RAMON DINO TEAM (29/04/2026) ---
+        const RAMON_DINO_WORKOUTS = [
+            {
+                id: 'rd_a', letra: 'A', dia: 'Segunda', name: 'TREINO A — QUADRÍCEPS', grupo: 'Quadríceps',
+                duracao_min: 80, local_manha: ['CTRC', 'Oficial Gym'], complemento_noite: 'HYROX (se livre) ou só musculação (se formação)',
+                exercises: [
+                    { id: 'rd_a_1', name: 'Agachamento Livre', sets: '2x15 aquec + 4x10-12', note: '' },
+                    { id: 'rd_a_2', name: 'Leg Press 45° cluster', sets: '4x12 (4+4+4)', note: '3 blocos de 4 reps com 15s descanso' },
+                    { id: 'rd_a_3', name: 'Agachamento Hack', sets: '4x10-12', note: 'Máxima amplitude, cadência controlada' },
+                    { id: 'rd_a_4', name: 'Afundo no Smith com recuo', sets: '3x10-12', note: '' },
+                    { id: 'rd_a_5', name: 'Cadeira Extensora', sets: '4x falha', note: '2s pico de contração' },
+                    { id: 'rd_a_6', name: 'Panturrilha Sentado', sets: '5x15', note: '' },
+                ],
+            },
+            {
+                id: 'rd_b', letra: 'B', dia: 'Terça', name: 'TREINO B — COSTAS E BÍCEPS', grupo: 'Costas e Bíceps',
+                duracao_min: 80, local_manha: ['CrossFit Bulls'], complemento_noite: 'BLOQUEADO — Catequese',
+                exercises: [
+                    { id: 'rd_b_1', name: 'Pulldown Corda', sets: '2x15 aquec + 3x10-12', note: '' },
+                    { id: 'rd_b_2', name: 'Puxador Costas Articulado cluster', sets: '4x12 (4+4+4)', note: '' },
+                    { id: 'rd_b_3', name: 'Puxador Costas Frente Triângulo', sets: '4x10-12', note: '' },
+                    { id: 'rd_b_4', name: 'Remada Curvada com Barra', sets: '4x10-12', note: 'Pegada pronada, tronco paralelo ao solo' },
+                    { id: 'rd_b_5', name: 'Remada Serrote Unilateral com Halter', sets: '4x10-12', note: '' },
+                    { id: 'rd_b_6', name: 'Remada Baixa Unilateral', sets: '3x10-12', note: 'Supinação palmar na concêntrica' },
+                    { id: 'rd_b_7', name: 'Rosca Scott', sets: '4x10-12', note: '' },
+                    { id: 'rd_b_8', name: 'Rosca Corda no Cross', sets: '4x10-12', note: '' },
+                ],
+            },
+            {
+                id: 'rd_c', letra: 'C', dia: 'Quarta', name: 'TREINO C — PEITO E OMBRO', grupo: 'Peito e Ombro',
+                duracao_min: 80, local_manha: ['Oficial Gym', 'Smart Fit'], complemento_noite: 'CrossFit WOD — CrossFit Bulls',
+                exercises: [
+                    { id: 'rd_c_1', name: 'Supino Reto com Halter', sets: '2x15 aquec + 4x10-12', note: '' },
+                    { id: 'rd_c_2', name: 'Chest Press', sets: '4x10-12', note: 'Cadência controlada, amplitude completa' },
+                    { id: 'rd_c_3', name: 'Crossover Polia Média', sets: '4x10-12', note: 'Polia altura do ombro' },
+                    { id: 'rd_c_4', name: 'Voador', sets: '3x falha', note: '2s pico de contração' },
+                    { id: 'rd_c_5', name: 'Crossover Polia Baixa', sets: '4x10-12', note: 'Polia altura dos joelhos' },
+                    { id: 'rd_c_6', name: 'Elevação Frontal com Corda no Cross', sets: '3x10-12', note: '' },
+                    { id: 'rd_c_7', name: 'Desenvolvimento Sentado com Halter', sets: '4x10-12', note: 'Banco 80°' },
+                    { id: 'rd_c_8', name: 'Elevação Lateral', sets: '4x10-12', note: 'Back off última série' },
+                ],
+            },
+            {
+                id: 'rd_d', letra: 'D', dia: 'Quinta', name: 'TREINO D — POSTERIORES E ISQUIOTIBIAIS', grupo: 'Posteriores e Isquiotibiais',
+                duracao_min: 80, local_manha: ['CrossFit Bulls'], complemento_noite: 'Natação (Totalpass)',
+                exercises: [
+                    { id: 'rd_d_1', name: 'Cadeira Abdutora', sets: '4x15', note: '2s pico de contração' },
+                    { id: 'rd_d_2', name: 'Elevação Pélvica com Barra', sets: '4x10-12', note: '' },
+                    { id: 'rd_d_3', name: 'Levantamento Terra Sumo', sets: '4x8-10', note: '' },
+                    { id: 'rd_d_4', name: 'Agachamento Búlgaro', sets: '3x falha', note: '' },
+                    { id: 'rd_d_5', name: 'Mesa Flexora', sets: '5x10-12', note: 'Progressão de carga' },
+                    { id: 'rd_d_6', name: 'Cadeira Flexora', sets: '5x10-12', note: '2s pico de contração' },
+                    { id: 'rd_d_7', name: 'Panturrilha em Pé', sets: '5x15', note: '' },
+                ],
+            },
+            {
+                id: 'rd_e', letra: 'E', dia: 'Sexta', name: 'TREINO E — OMBRO, TRAPÉZIO E ABDOME', grupo: 'Ombro, Trapézio e Abdome',
+                duracao_min: 80, local_manha: ['CTRC', 'Bioritmo'], complemento_noite: 'Velocity/Spinning — ClassPass',
+                exercises: [
+                    { id: 'rd_e_1', name: 'Desenvolvimento Sentado com Halter', sets: '2x15 aquec + 4x10-12', note: '' },
+                    { id: 'rd_e_2', name: 'Elevação Lateral', sets: '4x10-12', note: '' },
+                    { id: 'rd_e_3', name: 'Remada Alta com Barra W', sets: '4x10-12', note: 'Smith, pegada mais aberta' },
+                    { id: 'rd_e_4', name: 'Crucifixo Inverso na Máquina', sets: '4x10-12', note: 'Back off última série' },
+                    { id: 'rd_e_5', name: 'Elevação Frontal com Barra W', sets: '4x10-12', note: 'Pegada supinada' },
+                    { id: 'rd_e_6', name: 'Encolhimento com Halter', sets: '4x15', note: '2s pico de contração' },
+                    { id: 'rd_e_7', name: 'Abdômen no Solo', sets: '4x15', note: 'Reto no solo' },
+                    { id: 'rd_e_8', name: 'Abdômen Infra Paralela', sets: '4x15', note: 'Flexionando o quadril' },
+                ],
+            },
+            {
+                id: 'rd_f', letra: 'F', dia: 'Sábado', name: 'TREINO F — BÍCEPS E TRÍCEPS', grupo: 'Bíceps e Tríceps',
+                duracao_min: 70, local_manha: ['Gaviões', 'Smart Fit'], complemento_noite: 'Muay Thai — CrossFit Bulls',
+                exercises: [
+                    { id: 'rd_f_1', name: 'Mergulho na Paralela', sets: '4x10-12', note: 'SUBSTITUIU Tríceps Testa — nunca incluir Tríceps Testa' },
+                    { id: 'rd_f_2', name: 'Tríceps Francês Corda no Cross', sets: '4x10-12', note: '' },
+                    { id: 'rd_f_3', name: 'Tríceps Corda', sets: '4x10+falha', note: '1 drop em todas as séries' },
+                    { id: 'rd_f_4', name: 'Rosca Direta com Barra W', sets: '4x8-10', note: 'Progressão de carga' },
+                    { id: 'rd_f_5', name: 'Rosca Spider Banco 35°', sets: '4x10-12', note: '' },
+                    { id: 'rd_f_6', name: 'Rosca Corda no Cross', sets: '4x10+10', note: '+ Rosca inversa barra' },
+                ],
+            },
+            {
+                id: 'rd_dom', letra: 'DSC', dia: 'Domingo', name: 'DOMINGO — DESCANSO ATIVO', grupo: 'Descanso Ativo',
+                duracao_min: null, local_manha: [], complemento_noite: '',
+                complemento: 'Caminhada leve — sem treino estruturado.',
+                exercises: [],
+            },
+        ];
+        const WEEKDAY_WORKOUT = ['rd_dom', 'rd_a', 'rd_b', 'rd_c', 'rd_d', 'rd_e', 'rd_f'];
+        const WEEKDAY_NAMES = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+
+        // --- DADOS SEED (histórico real do documento) ---
+        const DEFAULT_PROFILE = { nome: 'Ivanir dos Santos Junior', apelido: 'Junior', idade: 37, altura_cm: 180 };
+        const DEFAULT_GOALS = {
+            peso_alvo_min: 90, peso_alvo_max: 92,
+            gordura_alvo_min: 12, gordura_alvo_max: 15,
+            peso_max_ganho_mes: 0.5, cintura_max_aumento_mes: 1.0,
+            meta_kcal_treino_pesado: 2600, meta_kcal_treino_moderado: 2400, meta_kcal_descanso: 2200, meta_kcal_media_semanal: 2450,
+            meta_proteina_min: 190, meta_proteina_max: 200,
+            meta_gordura_min: 65, meta_gordura_max: 75,
+            meta_agua_ml: 4200,
+        };
+        const DEFAULT_SUPPLEMENTS = [
+            { id: 'sup_whey', nome: 'Whey Protein', dose: '40g', horario: '10:00', status: 'FIXO' },
+            { id: 'sup_multi', nome: 'Multivitamínico', dose: '1 dose/dia', horario: 'Manhã', status: 'FIXO' },
+            { id: 'sup_creatina', nome: 'Creatina', dose: '5g/dia', horario: 'Qualquer horário', status: 'OPCIONAL' },
+            { id: 'sup_ioimbina', nome: 'Ioimbina', dose: '5mg', horario: 'Jejum, 30-45min pré-treino', status: 'PRESCRITO' },
+            { id: 'sup_longjack', nome: 'Long Jack (Eurycoma longifolia)', dose: '400mg/dia', horario: 'Manhã com 1ª refeição', status: 'A COMPRAR' },
+            { id: 'sup_probiotico', nome: 'Probiótico', dose: '1 cápsula/dia', horario: 'Longe das refeições', status: 'RECOMENDADO' },
+        ];
+        const DEFAULT_INBODY = [
+            { id: 'ib_1', data: '2025-07-28', peso: 104.1, massa_muscular: 39.0, massa_gordura: 35.7, percentual_gordura: 34.3, gordura_visceral: 16, cintura_quadril: 0.97, tmb: null, imc: null, pontuacao: null, agua_corporal: null, proteina_corporal: null },
+            { id: 'ib_2', data: '2025-10-21', peso: 94.4, massa_muscular: 39.3, massa_gordura: 25.6, percentual_gordura: 27.1, gordura_visceral: 11, cintura_quadril: 0.94, tmb: null, imc: null, pontuacao: null, agua_corporal: null, proteina_corporal: null },
+            { id: 'ib_3', data: '2026-05-06', peso: 90.5, massa_muscular: 40.8, massa_gordura: 19.7, percentual_gordura: 21.8, gordura_visceral: 8, cintura_quadril: 0.91, tmb: 1898, imc: 27.9, pontuacao: 82, agua_corporal: 51.9, proteina_corporal: 14.2 },
+        ];
+
+        // --- COMPONENTES DE APRESENTAÇÃO ---
+        const Chart = ({ series, height = 150, type = 'line', target, color = COLORS.blue, unit = '' }) => {
+            const [selected, setSelected] = React.useState(series.length - 1);
+            React.useEffect(() => { setSelected(series.length - 1); }, [series.length]);
+            if (!series || series.length === 0) {
+                return <div className="h-20 flex items-center justify-center text-xs text-neutral-600 border border-dashed border-neutral-800 rounded-lg">Sem dados suficientes</div>;
+            }
+            const values = series.map(p => p.value).filter(v => v != null);
+            if (values.length === 0) {
+                return <div className="h-20 flex items-center justify-center text-xs text-neutral-600 border border-dashed border-neutral-800 rounded-lg">Sem dados suficientes</div>;
+            }
+            let min = Math.min(...values, target && target.min != null ? target.min : Infinity);
+            let max = Math.max(...values, target && target.max != null ? target.max : -Infinity);
+            if (min === max) { min -= 1; max += 1; }
+            const pad = (max - min) * 0.15;
+            min -= pad; max += pad;
+            const W = 300, H = height, padL = 34, padR = 10, padT = 16, padB = 20;
+            const plotW = W - padL - padR, plotH = H - padT - padB;
+            const xFor = (i) => series.length === 1 ? padL + plotW / 2 : padL + (plotW * i) / (series.length - 1);
+            const yFor = (v) => padT + plotH - ((v - min) / (max - min)) * plotH;
+            const points = series.map((p, i) => ({ ...p, x: xFor(i), y: yFor(p.value) }));
+            const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+            const selIdx = Math.min(selected, points.length - 1);
+            const sel = points[selIdx];
+            const gridYs = [min + pad, (min + max) / 2, max - pad];
+
+            return (
+                <div className="mt-1">
+                    <div className="flex items-baseline justify-between mb-1 px-0.5">
+                        <span className="text-[11px] text-neutral-500">{sel ? fmtBR(sel.date) : ''}</span>
+                        <span className="text-sm font-bold" style={{ color }}>{sel && sel.value != null ? `${sel.value}${unit}` : '--'}</span>
+                    </div>
+                    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height }}>
+                        {gridYs.map((gy, i) => {
+                            const y = yFor(gy);
+                            return <line key={i} x1={padL} x2={W - padR} y1={y} y2={y} stroke={COLORS.grid} strokeWidth="1" />;
+                        })}
+                        {target && target.min != null && target.max != null && (
+                            <rect x={padL} y={yFor(target.max)} width={plotW} height={Math.max(0, yFor(target.min) - yFor(target.max))} fill={COLORS.good} opacity="0.12" />
+                        )}
+                        {type === 'bar' ? points.map((p, i) => {
+                            const barW = Math.max(5, (plotW / points.length) * 0.55);
+                            const baseY = padT + plotH;
+                            return <rect key={i} x={p.x - barW / 2} y={p.y} width={barW} height={Math.max(0, baseY - p.y)} fill={color} opacity={i === selIdx ? 1 : 0.6} rx="2" onClick={() => setSelected(i)} />;
+                        }) : (
+                            <path d={path} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        )}
+                        {type === 'line' && points.map((p, i) => (
+                            <circle key={i} cx={p.x} cy={p.y} r={i === selIdx ? 4.5 : 3} fill={i === selIdx ? '#fff' : color} stroke={color} strokeWidth={i === selIdx ? 2 : 0} onClick={() => setSelected(i)} />
+                        ))}
+                        <text x={padL} y={H - 4} fontSize="9" fill={COLORS.muted}>{fmtBR(series[0].date)}</text>
+                        <text x={W - padR} y={H - 4} fontSize="9" fill={COLORS.muted} textAnchor="end">{fmtBR(series[series.length - 1].date)}</text>
+                    </svg>
+                </div>
+            );
+        };
+
+        const StatTile = ({ label, value, sub, color }) => (
+            <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
+                <div className="text-[10px] uppercase tracking-wide text-neutral-500 font-bold mb-1">{label}</div>
+                <div className="text-xl font-bold" style={color ? { color } : undefined}>{value}</div>
+                {sub && <div className="text-[10px] text-neutral-500 mt-0.5">{sub}</div>}
+            </div>
+        );
+
+        const CompareRow = ({ label, before, after, unit = '', goodDir = null, decimals = 1 }) => {
+            if (before == null || after == null) return null;
+            const delta = after - before;
+            const improved = goodDir === 'down' ? delta < 0 : goodDir === 'up' ? delta > 0 : null;
+            const deltaColor = Math.abs(delta) < 0.0001 ? COLORS.muted : (improved === null ? COLORS.muted : (improved ? COLORS.good : COLORS.critical));
+            const arrow = delta > 0.0001 ? '▲' : delta < -0.0001 ? '▼' : '—';
+            return (
+                <div className="flex items-center justify-between py-2 border-b border-neutral-800 last:border-0 gap-2">
+                    <span className="text-xs text-neutral-400 shrink-0">{label}</span>
+                    <div className="flex items-center gap-1.5 text-xs">
+                        <span className="text-neutral-500">{before.toFixed(decimals)}{unit}</span>
+                        <Icon name="ArrowRight" size={11} className="text-neutral-700" />
+                        <span className="font-bold text-neutral-200">{after.toFixed(decimals)}{unit}</span>
+                        <span className="text-xs font-bold ml-1 shrink-0" style={{ color: deltaColor }}>{arrow} {Math.abs(delta).toFixed(decimals)}</span>
+                    </div>
+                </div>
+            );
+        };
+
+        const AlertBanner = ({ level = 'info', text }) => {
+            const styles = {
+                critical: { bg: 'bg-red-950/30', border: 'border-red-900/40', color: COLORS.critical, icon: 'AlertTriangle' },
+                warning: { bg: 'bg-yellow-950/20', border: 'border-yellow-900/30', color: COLORS.warning, icon: 'AlertTriangle' },
+                info: { bg: 'bg-blue-950/20', border: 'border-blue-900/30', color: COLORS.blue, icon: 'Info' },
+                good: { bg: 'bg-green-950/20', border: 'border-green-900/30', color: COLORS.good, icon: 'CheckCircle' },
+            };
+            const s = styles[level] || styles.info;
+            return (
+                <div className={`flex items-start gap-2 p-3 rounded-lg border ${s.bg} ${s.border}`}>
+                    <span style={{ color: s.color }} className="mt-0.5 shrink-0"><Icon name={s.icon} size={16} /></span>
+                    <span className="text-xs text-neutral-300 leading-snug">{text}</span>
+                </div>
+            );
+        };
+
+        const NAV_TABS = [
+            { id: 'dashboard', icon: 'Home', label: 'Início' },
+            { id: 'treinos', icon: 'Dumbbell', label: 'Treino' },
+            { id: 'nutricao', icon: 'Utensils', label: 'Nutrição' },
+            { id: 'inbody', icon: 'Activity', label: 'InBody' },
+            { id: 'progresso', icon: 'TrendingUp', label: 'Progresso' },
+        ];
+        const BottomNav = ({ view, onChange }) => (
+            <div className="fixed bottom-0 inset-x-0 z-20 bg-neutral-950/95 backdrop-blur-md border-t border-red-900/30">
+                <div className="max-w-md mx-auto grid grid-cols-5">
+                    {NAV_TABS.map(t => {
+                        const active = view === t.id;
+                        return (
+                            <button key={t.id} onClick={() => onChange(t.id)} className={`flex flex-col items-center gap-0.5 py-2 ${active ? 'text-red-500' : 'text-neutral-600'}`}>
+                                <Icon name={t.icon} size={20} />
+                                <span className="text-[10px] font-bold">{t.label}</span>
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+
+        const INBODY_FIELDS = [
+            ['peso', 'Peso (kg)'], ['massa_muscular', 'Massa muscular (kg)'],
+            ['massa_gordura', 'Massa gordura (kg)'], ['percentual_gordura', '% Gordura'],
+            ['gordura_visceral', 'Gordura visceral'], ['cintura_quadril', 'Cintura/Quadril'],
+            ['tmb', 'TMB (kcal)'], ['imc', 'IMC'],
+            ['pontuacao', 'Pontuação InBody'], ['agua_corporal', 'Água corporal (L)'],
+            ['proteina_corporal', 'Proteína corporal (kg)'],
         ];
 
         const App = () => {
             const [view, setView] = React.useState('login');
-            const [workouts, setWorkouts] = React.useState(INITIAL_WORKOUTS);
+            const [userName, setUserName] = React.useState('');
+            const [tempName, setTempName] = React.useState('');
+
+            const [workouts, setWorkouts] = React.useState(RAMON_DINO_WORKOUTS);
             const [activeWorkoutId, setActiveWorkoutId] = React.useState(null);
             const [history, setHistory] = React.useState({});
             const [sessionData, setSessionData] = React.useState({});
+            const [sessions, setSessions] = React.useState([]);
+            const activeWorkout = workouts.find(w => w.id === activeWorkoutId);
+
             const [timerOpen, setTimerOpen] = React.useState(false);
             const [timeLeft, setTimeLeft] = React.useState(0);
             const [timerRunning, setTimerRunning] = React.useState(false);
-            const [importText, setImportText] = React.useState('');
-            const [userName, setUserName] = React.useState('');
-            const [tempName, setTempName] = React.useState('');
             const timerInterval = React.useRef(null);
 
+            const [importText, setImportText] = React.useState('');
+
+            const [profile, setProfile] = React.useState(DEFAULT_PROFILE);
+            const [goals, setGoals] = React.useState(DEFAULT_GOALS);
+            const [supplements, setSupplements] = React.useState(DEFAULT_SUPPLEMENTS);
+            const [inbody, setInbody] = React.useState(DEFAULT_INBODY);
+            const [dailyLogs, setDailyLogs] = React.useState({});
+
+            const [nutriForm, setNutriForm] = React.useState(makeEmptyNutriForm());
+            const [inbodyForm, setInbodyForm] = React.useState(null);
+            const [compareA, setCompareA] = React.useState(null);
+            const [compareB, setCompareB] = React.useState(null);
+            const [reportPeriod, setReportPeriod] = React.useState(30);
+            const [selectedExercise, setSelectedExercise] = React.useState('');
+            const [profileDraft, setProfileDraft] = React.useState(null);
+            const [newSupplement, setNewSupplement] = React.useState({ nome: '', dose: '', horario: '' });
+
             React.useEffect(() => {
-                const savedHistory = localStorage.getItem('gymHistoryV2');
-                if (savedHistory) setHistory(JSON.parse(savedHistory));
-                const savedWorkouts = localStorage.getItem('gymWorkoutsV2');
-                if (savedWorkouts) setWorkouts(JSON.parse(savedWorkouts));
-                const savedUser = localStorage.getItem('gymUserName');
-                if (savedUser) { setUserName(savedUser); setView('home'); }
+                const sw = localStorage.getItem('gymWorkoutsV3'); if (sw) setWorkouts(JSON.parse(sw));
+                const sh = localStorage.getItem('gymHistoryV3'); if (sh) setHistory(JSON.parse(sh));
+                const ss = localStorage.getItem('gymSessionsV1'); if (ss) setSessions(JSON.parse(ss));
+                const sp = localStorage.getItem('gymProfileV1'); if (sp) setProfile(JSON.parse(sp));
+                const sg = localStorage.getItem('gymGoalsV1'); if (sg) setGoals(JSON.parse(sg));
+                const ssup = localStorage.getItem('gymSupplementsV1'); if (ssup) setSupplements(JSON.parse(ssup));
+                const sib = localStorage.getItem('gymInBodyV1'); if (sib) setInbody(JSON.parse(sib));
+                const sdl = localStorage.getItem('gymDailyLogsV1'); if (sdl) setDailyLogs(JSON.parse(sdl));
+                const su = localStorage.getItem('gymUserName'); if (su) { setUserName(su); setView('dashboard'); }
                 if (window.lucide) window.lucide.createIcons();
             }, []);
+
+            React.useEffect(() => {
+                if (inbody.length >= 2) { setCompareA(inbody[0].id); setCompareB(inbody[inbody.length - 1].id); }
+                else if (inbody.length === 1) { setCompareA(inbody[0].id); setCompareB(inbody[0].id); }
+            }, [inbody.length]);
+
+            const saveWorkouts = (w) => { setWorkouts(w); localStorage.setItem('gymWorkoutsV3', JSON.stringify(w)); };
+            const saveHistory = (h) => { setHistory(h); localStorage.setItem('gymHistoryV3', JSON.stringify(h)); };
+            const saveSessions = (s) => { setSessions(s); localStorage.setItem('gymSessionsV1', JSON.stringify(s)); };
+            const saveProfile = (p) => { setProfile(p); localStorage.setItem('gymProfileV1', JSON.stringify(p)); };
+            const saveGoals = (g) => { setGoals(g); localStorage.setItem('gymGoalsV1', JSON.stringify(g)); };
+            const saveSupplements = (s) => { setSupplements(s); localStorage.setItem('gymSupplementsV1', JSON.stringify(s)); };
+            const saveInbody = (a) => { setInbody(a); localStorage.setItem('gymInBodyV1', JSON.stringify(a)); };
+            const saveDailyLogs = (d) => { setDailyLogs(d); localStorage.setItem('gymDailyLogsV1', JSON.stringify(d)); };
 
             const handleLogin = (e) => {
                 e.preventDefault();
                 if (tempName.trim()) {
                     localStorage.setItem('gymUserName', tempName.trim());
                     setUserName(tempName.trim());
-                    setView('home');
+                    saveProfile({ ...profile, nome: tempName.trim() });
+                    setView('dashboard');
                 }
             };
 
             const handleLogout = () => {
-                if(confirm("Deseja sair?")) {
+                if (confirm("Deseja sair?")) {
                     localStorage.removeItem('gymUserName');
                     setUserName(''); setTempName(''); setView('login');
                 }
             };
 
             const handleFullReset = () => {
-                if(confirm("ATENÇÃO: Isso apagará TODOS os seus dados. Tem certeza?")) {
+                if (confirm("ATENÇÃO: Isso apagará TODOS os seus dados. Tem certeza?")) {
                     localStorage.clear(); window.location.reload();
                 }
             };
@@ -228,101 +437,570 @@
                             let notePart = line.substring(setsMatch.index + setsMatch[0].length).trim().replace(/^\(/, '').replace(/\)$/, '');
                             let tags = [];
                             let isThisBiset = nextIsBiset;
-                            const nextLine = (i + 1 < lines.length) ? lines[i+1].trim() : '';
-                            if (nextLine === '+' || nextLine.toUpperCase() === 'BISET') { isThisBiset = true; nextIsBiset = true; } 
+                            const nextLine = (i + 1 < lines.length) ? lines[i + 1].trim() : '';
+                            if (nextLine === '+' || nextLine.toUpperCase() === 'BISET') { isThisBiset = true; nextIsBiset = true; }
                             else { nextIsBiset = false; }
 
                             if (isThisBiset) tags.push('BISET');
                             if (upperLine.includes('DROP')) tags.push('DROP');
                             if (upperLine.includes('FALHA')) tags.push('FALHA');
-                            
+
                             let finalNote = [...tags, notePart].join(' • ');
                             currentWorkout.exercises.push({ id: `ex_${currentWorkout.id}_${exerciseCount++}`, name: namePart, sets: setsMatch[0], note: finalNote });
                         }
                     }
                     if (currentWorkout) newWorkouts.push(currentWorkout);
                     if (newWorkouts.length > 0) {
-                        setWorkouts(newWorkouts); localStorage.setItem('gymWorkoutsV2', JSON.stringify(newWorkouts));
-                        alert('Treinos importados!'); setView('home'); setImportText('');
+                        saveWorkouts(newWorkouts);
+                        alert('Treinos importados!'); setView('treinos'); setImportText('');
                     } else { alert('Padrão não reconhecido.'); }
                 } catch (e) { alert('Erro ao processar.'); }
             };
 
-            const resetToDefault = () => { if(confirm("Restaurar padrão?")) { setWorkouts(INITIAL_WORKOUTS); localStorage.removeItem('gymWorkoutsV2'); setView('home'); } };
+            const resetToDefault = () => { if (confirm("Restaurar o protocolo padrão (Ramon Dino Team)?")) { setWorkouts(RAMON_DINO_WORKOUTS); localStorage.removeItem('gymWorkoutsV3'); setView('treinos'); } };
             const startWorkout = (id) => { setActiveWorkoutId(id); setSessionData({}); setView('workout'); };
-            const toggleExercise = (id) => { setSessionData(prev => ({...prev, [id]: {...prev[id], done: !prev[id]?.done}})); };
-            const updateWeight = (id, w) => { setSessionData(prev => ({...prev, [id]: {...prev[id], weight: w}})); };
+            const toggleExercise = (id) => { setSessionData(prev => ({ ...prev, [id]: { ...prev[id], done: !prev[id]?.done } })); };
+            const updateWeight = (id, w) => { setSessionData(prev => ({ ...prev, [id]: { ...prev[id], weight: w } })); };
             const finishWorkout = () => {
-                const newH = {...history};
-                Object.keys(sessionData).forEach(id => { if(sessionData[id].done && sessionData[id].weight) newH[id] = sessionData[id].weight; });
-                setHistory(newH); localStorage.setItem('gymHistoryV2', JSON.stringify(newH));
-                setView('home'); setActiveWorkoutId(null);
+                const newH = { ...history };
+                const doneExercises = [];
+                Object.keys(sessionData).forEach(id => {
+                    if (sessionData[id].done && sessionData[id].weight) {
+                        newH[id] = sessionData[id].weight;
+                        const ex = activeWorkout?.exercises.find(e => e.id === id);
+                        if (ex) doneExercises.push({ id, name: ex.name, weight: sessionData[id].weight });
+                    }
+                });
+                saveHistory(newH);
+                if (doneExercises.length > 0) {
+                    const record = { id: uid('sess'), date: todayISO(), workoutId: activeWorkout.id, workoutName: activeWorkout.grupo || activeWorkout.name, letra: activeWorkout.letra, exercises: doneExercises };
+                    saveSessions([...sessions, record]);
+                }
+                setView('treinos'); setActiveWorkoutId(null);
             };
-            const startTimer = (s) => { clearInterval(timerInterval.current); setTimeLeft(s); setTimerOpen(true); setTimerRunning(true); timerInterval.current = setInterval(() => setTimeLeft(p => p<=1 ? (clearInterval(timerInterval.current), setTimerRunning(false), 0) : p-1), 1000); };
+            const startTimer = (s) => { clearInterval(timerInterval.current); setTimeLeft(s); setTimerOpen(true); setTimerRunning(true); timerInterval.current = setInterval(() => setTimeLeft(p => p <= 1 ? (clearInterval(timerInterval.current), setTimerRunning(false), 0) : p - 1), 1000); };
             const closeTimer = () => { setTimerOpen(false); clearInterval(timerInterval.current); };
-            const activeWorkout = workouts.find(w => w.id === activeWorkoutId);
+
+            const loadNutriForm = (date) => {
+                const existing = dailyLogs[date];
+                setNutriForm(existing ? {
+                    data: date,
+                    peso_manha: existing.peso_manha ?? '', kcal: existing.kcal ?? '', proteina: existing.proteina ?? '',
+                    carbo: existing.carbo ?? '', gordura: existing.gordura ?? '', agua_ml: existing.agua_ml ?? '',
+                    humor: existing.humor ?? 3, energia: existing.energia ?? 3, sono_horas: existing.sono_horas ?? '', observacoes: existing.observacoes ?? '',
+                } : makeEmptyNutriForm(date));
+            };
+
+            const upsertDailyLog = (date, patch) => {
+                const existing = dailyLogs[date] || {};
+                saveDailyLogs({ ...dailyLogs, [date]: { ...existing, ...patch } });
+            };
+            const saveNutriForm = () => {
+                const f = nutriForm;
+                upsertDailyLog(f.data, {
+                    peso_manha: parseNum(f.peso_manha), kcal: parseNum(f.kcal), proteina: parseNum(f.proteina),
+                    carbo: parseNum(f.carbo), gordura: parseNum(f.gordura), agua_ml: parseNum(f.agua_ml),
+                    humor: f.humor, energia: f.energia, sono_horas: parseNum(f.sono_horas), observacoes: f.observacoes,
+                });
+                alert('Registro salvo!');
+            };
+            const toggleSupplementToday = (date, supId) => {
+                const existing = dailyLogs[date] || {};
+                const sup = { ...(existing.suplementos || {}) };
+                sup[supId] = !sup[supId];
+                upsertDailyLog(date, { suplementos: sup });
+            };
+
+            const startNewInbody = () => setInbodyForm({ id: uid('ib'), data: todayISO(), peso: '', massa_muscular: '', massa_gordura: '', percentual_gordura: '', gordura_visceral: '', cintura_quadril: '', tmb: '', imc: '', pontuacao: '', agua_corporal: '', proteina_corporal: '' });
+            const saveInbodyForm = () => {
+                const f = inbodyForm;
+                const rec = { id: f.id, data: f.data };
+                INBODY_FIELDS.forEach(([key]) => { rec[key] = parseNum(f[key]); });
+                if (!rec.data || rec.peso == null) { alert('Preencha ao menos data e peso.'); return; }
+                const next = [...inbody.filter(x => x.id !== rec.id), rec].sort((a, b) => a.data.localeCompare(b.data));
+                saveInbody(next);
+                setInbodyForm(null);
+            };
+            const deleteInbody = (id) => { if (confirm('Excluir esta avaliação?')) saveInbody(inbody.filter(x => x.id !== id)); };
+
+            const startEditProfile = () => setProfileDraft({ ...profile, ...goals });
+            const saveProfileDraft = () => {
+                const d = profileDraft;
+                saveProfile({ ...profile, nome: d.nome, apelido: d.apelido, idade: parseNum(d.idade), altura_cm: parseNum(d.altura_cm) });
+                saveGoals({
+                    ...goals,
+                    peso_alvo_min: parseNum(d.peso_alvo_min), peso_alvo_max: parseNum(d.peso_alvo_max),
+                    gordura_alvo_min: parseNum(d.gordura_alvo_min), gordura_alvo_max: parseNum(d.gordura_alvo_max),
+                    meta_proteina_min: parseNum(d.meta_proteina_min), meta_proteina_max: parseNum(d.meta_proteina_max),
+                });
+                setProfileDraft(null);
+            };
+            const addSupplement = () => {
+                if (!newSupplement.nome.trim()) return;
+                saveSupplements([...supplements, { id: uid('sup'), status: 'OPCIONAL', ...newSupplement }]);
+                setNewSupplement({ nome: '', dose: '', horario: '' });
+            };
+            const removeSupplement = (id) => saveSupplements(supplements.filter(s => s.id !== id));
+
+            // --- DERIVADOS ---
+            const today = todayISO();
+            const todayLog = dailyLogs[today] || {};
+            const lastInbody = inbody.length ? inbody[inbody.length - 1] : null;
+            const latestPeso = todayLog.peso_manha ?? (lastInbody ? lastInbody.peso : null);
+            const latestGordura = lastInbody ? lastInbody.percentual_gordura : null;
+            const weekdayIdx = new Date().getDay();
+            const todayWorkoutId = WEEKDAY_WORKOUT[weekdayIdx];
+            const todayWorkout = workouts.find(w => w.id === todayWorkoutId);
+
+            const alerts = React.useMemo(() => {
+                const list = [];
+                const hour = new Date().getHours();
+                const tLog = dailyLogs[today] || {};
+                const proteinaMeta = goals.meta_proteina_min || 150;
+                if (hour >= 18 && (tLog.proteina || 0) < proteinaMeta) {
+                    list.push({ level: 'warning', text: `Proteína hoje está em ${tLog.proteina || 0}g — meta é ${proteinaMeta}g. Ainda dá tempo de completar no lanche/jantar.` });
+                }
+                if (tLog.kcal != null && tLog.kcal < 1500 && hour >= 20) {
+                    list.push({ level: 'critical', text: `Calorias muito baixas hoje (${tLog.kcal} kcal). Risco de déficit severo — coma algo antes de dormir.` });
+                } else if (hour >= 20 && tLog.kcal == null) {
+                    list.push({ level: 'info', text: 'Você ainda não registrou sua nutrição de hoje.' });
+                }
+                const monthAgo = addDaysISO(today, -30);
+                const pesoDates = Object.keys(dailyLogs).filter(d => d >= monthAgo && d <= today && dailyLogs[d].peso_manha != null).sort();
+                if (pesoDates.length >= 2) {
+                    const delta = dailyLogs[pesoDates[pesoDates.length - 1]].peso_manha - dailyLogs[pesoDates[0]].peso_manha;
+                    if (delta > (goals.peso_max_ganho_mes || 0.5)) {
+                        list.push({ level: 'warning', text: `Peso subiu ${delta.toFixed(1)}kg nos últimos 30 dias (acima do limite de ${goals.peso_max_ganho_mes}kg). Ajuste calorias em -100 a -150 kcal ou reduza carboidrato noturno.` });
+                    }
+                }
+                const last3 = [0, 1, 2].map(n => addDaysISO(today, -n));
+                if (!last3.some(d => dailyLogs[d])) {
+                    list.push({ level: 'info', text: 'Sem registros de nutrição nos últimos 3 dias — bora retomar a consistência.' });
+                }
+                return list;
+            }, [dailyLogs, goals, today]);
+
+            const periodStart = addDaysISO(today, -(reportPeriod - 1));
+            const periodDates = []; for (let i = 0; i < reportPeriod; i++) periodDates.push(addDaysISO(today, -i)); periodDates.reverse();
+            const periodLogs = periodDates.map(d => dailyLogs[d]).filter(Boolean);
+            const daysWithLog = periodLogs.length;
+            const avgKcal = daysWithLog ? Math.round(periodLogs.reduce((s, l) => s + (l.kcal || 0), 0) / daysWithLog) : null;
+            const avgProteina = daysWithLog ? Math.round(periodLogs.reduce((s, l) => s + (l.proteina || 0), 0) / daysWithLog) : null;
+            const periodSessions = sessions.filter(s => s.date >= periodStart && s.date <= today);
+            const expectedWorkouts = Math.round(reportPeriod * (6 / 7));
+            const pesoSeries = periodDates.filter(d => dailyLogs[d] && dailyLogs[d].peso_manha != null).map(d => ({ date: d, value: dailyLogs[d].peso_manha }));
+
+            const exerciseNames = React.useMemo(() => {
+                const set = new Set();
+                sessions.forEach(s => s.exercises.forEach(e => set.add(e.name)));
+                return Array.from(set);
+            }, [sessions]);
+            React.useEffect(() => { if (!selectedExercise && exerciseNames.length) setSelectedExercise(exerciseNames[0]); }, [exerciseNames]);
+            const exerciseSeries = React.useMemo(() => {
+                if (!selectedExercise) return [];
+                return sessions.filter(s => s.exercises.some(e => e.name === selectedExercise))
+                    .map(s => ({ date: s.date, value: parseFloat(s.exercises.find(e => e.name === selectedExercise).weight) }))
+                    .sort((a, b) => a.date.localeCompare(b.date));
+            }, [sessions, selectedExercise]);
+
+            const bottomNavVisible = view !== 'workout' && view !== 'config' && view !== 'login';
 
             if (view === 'login') return (
                 <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center p-6 fade-in">
                     <div className="mb-8 text-red-600 animate-pulse"><Icon name="Dumbbell" size={64} /></div>
                     <h1 className="text-3xl font-bold mb-2 text-center">O treino no jeito</h1>
-                    <p className="text-neutral-400 mb-8 text-center max-w-xs">App offline. Seus dados ficam no seu celular.</p>
+                    <p className="text-neutral-400 mb-8 text-center max-w-xs">App offline. Treino, nutrição, InBody e relatórios. Seus dados ficam no seu celular.</p>
                     <form onSubmit={handleLogin} className="w-full max-w-xs space-y-4">
-                        <input type="text" value={tempName} onChange={e=>setTempName(e.target.value)} placeholder="Seu Nome" className="w-full bg-neutral-900 border border-neutral-800 rounded-xl p-4 text-white focus:border-red-600 outline-none" autoFocus />
+                        <input type="text" value={tempName} onChange={e => setTempName(e.target.value)} placeholder="Seu Nome" className="w-full bg-neutral-900 border border-neutral-800 rounded-xl p-4 text-white focus:border-red-600 outline-none" autoFocus />
                         <button type="submit" disabled={!tempName.trim()} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl disabled:opacity-50">Entrar</button>
                     </form>
                 </div>
             );
 
             return (
-                <div className="min-h-screen bg-neutral-950 pb-20 fade-in">
+                <div className="min-h-screen bg-neutral-950 pb-28">
                     <header className="sticky top-0 z-20 bg-neutral-950/90 backdrop-blur-md border-b border-red-900/30 p-4">
                         <div className="flex items-center justify-between max-w-md mx-auto">
-                            {view !== 'home' ? <button onClick={()=>setView('home')}><Icon name="ChevronLeft" /></button> : <div className="flex items-center gap-2 text-red-600"><Icon name="Dumbbell" size={20}/><span className="text-white font-bold">Olá, {userName}</span></div>}
-                            {view === 'home' && <button onClick={()=>setView('importer')} className="text-neutral-400 hover:text-red-500"><Icon name="Settings"/></button>}
-                            {view === 'workout' && <h1 className="font-bold text-sm text-neutral-200 truncate ml-2">{activeWorkout?.name.split('-')[1] || 'Treino'}</h1>}
+                            {view === 'workout' ? (
+                                <>
+                                    <button onClick={() => setView('treinos')}><Icon name="ChevronLeft" /></button>
+                                    <h1 className="font-bold text-sm text-neutral-200 truncate ml-2">{activeWorkout ? `Treino ${activeWorkout.letra || ''} · ${activeWorkout.grupo || activeWorkout.name}` : 'Treino'}</h1>
+                                    <div className="w-6" />
+                                </>
+                            ) : view === 'config' ? (
+                                <>
+                                    <button onClick={() => setView('dashboard')}><Icon name="ChevronLeft" /></button>
+                                    <h1 className="font-bold text-sm text-neutral-200">Configurações</h1>
+                                    <div className="w-6" />
+                                </>
+                            ) : (
+                                <>
+                                    <div className="flex items-center gap-2 text-red-600"><Icon name="Dumbbell" size={20} /><span className="text-white font-bold">Olá, {userName}</span></div>
+                                    <button onClick={() => setView('config')} className="text-neutral-400 hover:text-red-500"><Icon name="Settings" /></button>
+                                </>
+                            )}
                         </div>
                     </header>
+
                     <main className="max-w-md mx-auto p-4 space-y-4">
-                        {view === 'importer' && <div className="slide-in space-y-4">
-                            <h2 className="text-xl font-bold flex gap-2"><Icon name="Edit3" className="text-red-500"/> Configurações</h2>
-                            <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800"><h3 className="text-sm font-bold mb-2">Importar</h3><textarea value={importText} onChange={e=>setImportText(e.target.value)} className="w-full h-32 bg-neutral-950 border border-neutral-800 rounded p-2 text-sm mb-2" placeholder="Cole aqui..."/><button onClick={processImport} className="w-full bg-red-600 py-2 rounded font-bold">Processar</button></div>
-                            <button onClick={resetToDefault} className="w-full bg-neutral-800 py-3 rounded text-neutral-400 font-bold flex justify-center gap-2"><Icon name="RotateCcw"/> Restaurar Padrão</button>
-                            <button onClick={handleLogout} className="w-full border border-neutral-800 py-3 rounded text-neutral-400 font-bold flex justify-center gap-2"><Icon name="LogOut"/> Sair</button>
-                            <button onClick={handleFullReset} className="w-full border border-red-900/30 text-red-800 py-3 rounded font-bold flex justify-center gap-2"><Icon name="Trash2"/> Reset Total</button>
-                        </div>}
-                        {view === 'home' && <div className="space-y-3">{workouts.map((w,i)=>(
-                            <button key={w.id} onClick={()=>startWorkout(w.id)} className={`w-full bg-neutral-900 border border-neutral-800 border-l-4 p-5 rounded-r-xl rounded-l-md flex justify-between items-center active:scale-[0.98] ${['border-l-red-500','border-l-orange-500'][i%2]}`}>
-                                <div className="text-left overflow-hidden"><h3 className="font-bold text-sm truncate">{w.name}</h3><span className="text-xs text-neutral-500">{w.exercises.length} Ex</span></div><Icon name="Play" size={16} className="text-neutral-600"/>
-                            </button>
-                        ))}</div>}
-                        {view === 'workout' && activeWorkout && <div className="space-y-4 pb-24 slide-in">{activeWorkout.exercises.map((ex,i)=>{
+
+                        {view === 'dashboard' && (
+                            <div className="space-y-4 fade-in">
+                                {alerts.length > 0 && <div className="space-y-2">{alerts.map((a, i) => <AlertBanner key={i} level={a.level} text={a.text} />)}</div>}
+
+                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                    <div className="flex justify-between items-center mb-3">
+                                        <h3 className="font-bold text-sm flex items-center gap-2"><Icon name="Dumbbell" size={16} className="text-red-500" /> Treino de hoje</h3>
+                                        <span className="text-[10px] text-neutral-500">{WEEKDAY_NAMES[weekdayIdx]}</span>
+                                    </div>
+                                    {todayWorkout && todayWorkout.exercises && todayWorkout.exercises.length > 0 ? (
+                                        <div>
+                                            <p className="text-sm text-neutral-300 mb-1">{todayWorkout.grupo}</p>
+                                            <p className="text-[11px] text-neutral-500 mb-1">{todayWorkout.duracao_min ? `${todayWorkout.duracao_min}min` : ''}{todayWorkout.local_manha && todayWorkout.local_manha.length ? ` · ${todayWorkout.local_manha.join('/')}` : ''}</p>
+                                            {todayWorkout.complemento_noite && <p className="text-[11px] text-neutral-500 mb-3">🌙 {todayWorkout.complemento_noite}</p>}
+                                            <button onClick={() => startWorkout(todayWorkout.id)} className="w-full bg-red-600 py-3 rounded-lg font-bold flex justify-center gap-2 mt-2"><Icon name="Play" size={16} /> Iniciar treino</button>
+                                        </div>
+                                    ) : (
+                                        <p className="text-sm text-neutral-400">{(todayWorkout && todayWorkout.complemento) || 'Descanso ativo — caminhada leve, sem treino estruturado.'}</p>
+                                    )}
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3">
+                                    <StatTile label="Peso atual" value={latestPeso != null ? `${latestPeso}kg` : '--'} sub={goals.peso_alvo_min ? `Meta ${goals.peso_alvo_min}-${goals.peso_alvo_max}kg` : ''} />
+                                    <StatTile label="% Gordura" value={latestGordura != null ? `${latestGordura}%` : '--'} sub={goals.gordura_alvo_min ? `Meta ${goals.gordura_alvo_min}-${goals.gordura_alvo_max}%` : ''} />
+                                </div>
+
+                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                    <div className="flex justify-between items-center mb-3">
+                                        <h3 className="font-bold text-sm flex items-center gap-2"><Icon name="Utensils" size={16} className="text-red-500" /> Nutrição de hoje</h3>
+                                        <button onClick={() => { loadNutriForm(today); setView('nutricao'); }} className="text-[11px] text-red-500 font-bold">Registrar</button>
+                                    </div>
+                                    <div className="grid grid-cols-3 gap-2 text-center">
+                                        <div><div className="text-lg font-bold">{todayLog.kcal ?? '--'}</div><div className="text-[9px] text-neutral-500 uppercase">Kcal</div></div>
+                                        <div><div className="text-lg font-bold">{todayLog.proteina ?? '--'}</div><div className="text-[9px] text-neutral-500 uppercase">Proteína</div></div>
+                                        <div><div className="text-lg font-bold">{todayLog.agua_ml ?? '--'}</div><div className="text-[9px] text-neutral-500 uppercase">Água ml</div></div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                    <h3 className="font-bold text-sm flex items-center gap-2 mb-3"><Icon name="Pill" size={16} className="text-red-500" /> Suplementos de hoje</h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {supplements.map(s => {
+                                            const taken = !!(dailyLogs[today] && dailyLogs[today].suplementos && dailyLogs[today].suplementos[s.id]);
+                                            return (
+                                                <button key={s.id} onClick={() => toggleSupplementToday(today, s.id)} className={`text-[11px] px-3 py-1.5 rounded-full border font-bold flex items-center gap-1 ${taken ? 'bg-red-950/30 border-red-800 text-red-400' : 'bg-neutral-950 border-neutral-800 text-neutral-500'}`}>
+                                                    <Icon name={taken ? 'CheckCircle' : 'Circle'} size={12} /> {s.nome}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {view === 'treinos' && (
+                            <div className="space-y-3 fade-in">
+                                <div className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-3 text-[11px] text-neutral-400 flex gap-2">
+                                    <Icon name="Info" size={13} className="text-red-500 shrink-0 mt-0.5" />
+                                    <span>Cardio diário: 20-30min (jejum ou pós-treino) · 15min nos dias com 2º estímulo à noite.</span>
+                                </div>
+                                {workouts.map((w, i) => {
+                                    const isRest = !w.exercises || w.exercises.length === 0;
+                                    if (isRest) return (
+                                        <div key={w.id} className="w-full bg-neutral-900/50 border border-neutral-800 border-l-4 border-l-neutral-700 p-5 rounded-r-xl rounded-l-md">
+                                            <h3 className="font-bold text-sm text-neutral-400">{w.name}</h3>
+                                            <p className="text-xs text-neutral-600 mt-1">{w.complemento}</p>
+                                        </div>
+                                    );
+                                    return (
+                                        <button key={w.id} onClick={() => startWorkout(w.id)} className={`w-full bg-neutral-900 border border-neutral-800 border-l-4 p-5 rounded-r-xl rounded-l-md flex justify-between items-center active:scale-[0.98] ${['border-l-red-500', 'border-l-orange-500'][i % 2]}`}>
+                                            <div className="text-left overflow-hidden">
+                                                <h3 className="font-bold text-sm truncate">{w.name}</h3>
+                                                <span className="text-xs text-neutral-500">{w.exercises.length} exercícios{w.duracao_min ? ` · ${w.duracao_min}min` : ''}</span>
+                                                {w.complemento_noite && <span className="block text-[10px] text-neutral-600 mt-0.5">🌙 {w.complemento_noite}</span>}
+                                            </div>
+                                            <Icon name="Play" size={16} className="text-neutral-600" />
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        )}
+
+                        {view === 'workout' && activeWorkout && <div className="space-y-4 pb-24 slide-in">{activeWorkout.exercises.map((ex, i) => {
                             const isDone = sessionData[ex.id]?.done;
                             const isBiset = ex.note && ex.note.includes('BISET');
                             return (
                                 <div key={ex.id} className="relative">
-                                    {isBiset && i<activeWorkout.exercises.length-1 && activeWorkout.exercises[i+1].note?.includes('BISET') && <div className="absolute left-8 mt-[3.5rem] w-1 h-8 bg-red-600/30"></div>}
-                                    <div className={`p-4 rounded-xl border relative z-10 ${isDone?'bg-red-950/20 border-red-900/30':'bg-neutral-900 border-neutral-800'}`}>
+                                    {isBiset && i < activeWorkout.exercises.length - 1 && activeWorkout.exercises[i + 1].note?.includes('BISET') && <div className="absolute left-8 mt-[3.5rem] w-1 h-8 bg-red-600/30"></div>}
+                                    <div className={`p-4 rounded-xl border relative z-10 ${isDone ? 'bg-red-950/20 border-red-900/30' : 'bg-neutral-900 border-neutral-800'}`}>
                                         {ex.note && <div className="mb-2"><span className="text-[10px] font-bold px-2 py-1 rounded bg-neutral-800 text-red-500 border border-red-900/30 whitespace-normal leading-tight block">{ex.note}</span></div>}
-                                        <div className="flex justify-between mb-4"><div><h3 className={`font-bold ${isDone?'text-red-500/50 line-through':'text-neutral-200'}`}>{ex.name}</h3><span className="text-xs bg-neutral-950 px-2 py-0.5 rounded border border-neutral-800 text-neutral-400">{ex.sets}</span></div><button onClick={()=>toggleExercise(ex.id)} className={isDone?'text-red-600':'text-neutral-600'}><Icon name={isDone?'CheckCircle':'Circle'} size={28}/></button></div>
-                                        <div className={`grid grid-cols-[1fr,auto] gap-3 items-end ${isDone?'opacity-50 pointer-events-none':''}`}>
-                                            <div className="bg-neutral-950 p-2 rounded border border-neutral-800 flex justify-between items-center"><div className="w-full"><span className="text-[9px] text-neutral-500 font-bold uppercase block">Carga</span><input type="number" placeholder={history[ex.id]||'0'} value={sessionData[ex.id]?.weight||''} onChange={e=>updateWeight(ex.id,e.target.value)} className="bg-transparent text-lg font-bold w-full outline-none"/></div>{history[ex.id]&&<div className="border-l border-neutral-800 pl-2 text-right"><span className="text-[9px] text-neutral-500 block">Ant.</span><span className="text-xs">{history[ex.id]}</span></div>}</div>
-                                            <button onClick={()=>startTimer(60)} className="h-full bg-neutral-800 w-12 rounded border border-neutral-700 flex justify-center items-center text-neutral-400"><Icon name="Clock" size={20}/></button>
+                                        <div className="flex justify-between mb-4"><div><h3 className={`font-bold ${isDone ? 'text-red-500/50 line-through' : 'text-neutral-200'}`}>{ex.name}</h3><span className="text-xs bg-neutral-950 px-2 py-0.5 rounded border border-neutral-800 text-neutral-400">{ex.sets}</span></div><button onClick={() => toggleExercise(ex.id)} className={isDone ? 'text-red-600' : 'text-neutral-600'}><Icon name={isDone ? 'CheckCircle' : 'Circle'} size={28} /></button></div>
+                                        <div className={`grid grid-cols-[1fr,auto] gap-3 items-end ${isDone ? 'opacity-50 pointer-events-none' : ''}`}>
+                                            <div className="bg-neutral-950 p-2 rounded border border-neutral-800 flex justify-between items-center"><div className="w-full"><span className="text-[9px] text-neutral-500 font-bold uppercase block">Carga</span><input type="number" placeholder={history[ex.id] || '0'} value={sessionData[ex.id]?.weight || ''} onChange={e => updateWeight(ex.id, e.target.value)} className="bg-transparent text-lg font-bold w-full outline-none" /></div>{history[ex.id] && <div className="border-l border-neutral-800 pl-2 text-right"><span className="text-[9px] text-neutral-500 block">Ant.</span><span className="text-xs">{history[ex.id]}</span></div>}</div>
+                                            <button onClick={() => startTimer(60)} className="h-full bg-neutral-800 w-12 rounded border border-neutral-700 flex justify-center items-center text-neutral-400"><Icon name="Clock" size={20} /></button>
                                         </div>
                                     </div>
                                 </div>
                             );
                         })}</div>}
+
+                        {view === 'nutricao' && (
+                            <div className="space-y-4 fade-in">
+                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-3">
+                                    <h3 className="font-bold text-sm flex items-center gap-2"><Icon name="Utensils" size={16} className="text-red-500" /> Registro diário</h3>
+                                    <div>
+                                        <label className="text-[10px] uppercase text-neutral-500 font-bold">Data</label>
+                                        <input type="date" value={nutriForm.data} onChange={e => loadNutriForm(e.target.value)} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div><label className="text-[10px] uppercase text-neutral-500 font-bold">Peso (kg)</label><input type="number" step="0.1" value={nutriForm.peso_manha} onChange={e => setNutriForm({ ...nutriForm, peso_manha: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
+                                        <div><label className="text-[10px] uppercase text-neutral-500 font-bold">Água (ml)</label><input type="number" value={nutriForm.agua_ml} onChange={e => setNutriForm({ ...nutriForm, agua_ml: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
+                                    </div>
+                                    <div className="grid grid-cols-4 gap-2">
+                                        <div><label className="text-[9px] uppercase text-neutral-500 font-bold">Kcal</label><input type="number" value={nutriForm.kcal} onChange={e => setNutriForm({ ...nutriForm, kcal: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
+                                        <div><label className="text-[9px] uppercase text-neutral-500 font-bold">Prot.</label><input type="number" value={nutriForm.proteina} onChange={e => setNutriForm({ ...nutriForm, proteina: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
+                                        <div><label className="text-[9px] uppercase text-neutral-500 font-bold">Carbo</label><input type="number" value={nutriForm.carbo} onChange={e => setNutriForm({ ...nutriForm, carbo: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
+                                        <div><label className="text-[9px] uppercase text-neutral-500 font-bold">Gord.</label><input type="number" value={nutriForm.gordura} onChange={e => setNutriForm({ ...nutriForm, gordura: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label className="text-[10px] uppercase text-neutral-500 font-bold block mb-1">Humor</label>
+                                            <div className="flex gap-1">{[1, 2, 3, 4, 5].map(n => <button key={n} onClick={() => setNutriForm({ ...nutriForm, humor: n })} className={`flex-1 py-1.5 rounded text-xs font-bold ${nutriForm.humor === n ? 'bg-red-600' : 'bg-neutral-950 border border-neutral-800 text-neutral-500'}`}>{n}</button>)}</div>
+                                        </div>
+                                        <div>
+                                            <label className="text-[10px] uppercase text-neutral-500 font-bold block mb-1">Energia</label>
+                                            <div className="flex gap-1">{[1, 2, 3, 4, 5].map(n => <button key={n} onClick={() => setNutriForm({ ...nutriForm, energia: n })} className={`flex-1 py-1.5 rounded text-xs font-bold ${nutriForm.energia === n ? 'bg-red-600' : 'bg-neutral-950 border border-neutral-800 text-neutral-500'}`}>{n}</button>)}</div>
+                                        </div>
+                                    </div>
+                                    <div><label className="text-[10px] uppercase text-neutral-500 font-bold">Sono (horas)</label><input type="number" step="0.5" value={nutriForm.sono_horas} onChange={e => setNutriForm({ ...nutriForm, sono_horas: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
+                                    <div><label className="text-[10px] uppercase text-neutral-500 font-bold">Observações</label><textarea value={nutriForm.observacoes} onChange={e => setNutriForm({ ...nutriForm, observacoes: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1 h-16" /></div>
+                                    <button onClick={saveNutriForm} className="w-full bg-red-600 py-3 rounded-lg font-bold">Salvar registro</button>
+                                </div>
+
+                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                    <h3 className="font-bold text-sm mb-3">Metas do protocolo</h3>
+                                    <div className="grid grid-cols-2 gap-2 text-xs">
+                                        <div className="flex justify-between"><span className="text-neutral-500">Proteína</span><span className="font-bold">{goals.meta_proteina_min}-{goals.meta_proteina_max}g</span></div>
+                                        <div className="flex justify-between"><span className="text-neutral-500">Kcal treino pesado</span><span className="font-bold">{goals.meta_kcal_treino_pesado}</span></div>
+                                        <div className="flex justify-between"><span className="text-neutral-500">Kcal descanso</span><span className="font-bold">{goals.meta_kcal_descanso}</span></div>
+                                        <div className="flex justify-between"><span className="text-neutral-500">Gordura</span><span className="font-bold">{goals.meta_gordura_min}-{goals.meta_gordura_max}g</span></div>
+                                        <div className="flex justify-between"><span className="text-neutral-500">Água</span><span className="font-bold">{(goals.meta_agua_ml / 1000).toFixed(1)}L</span></div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                    <h3 className="font-bold text-sm mb-3">Últimos registros</h3>
+                                    <div className="space-y-2">
+                                        {Object.keys(dailyLogs).sort().reverse().slice(0, 14).map(d => {
+                                            const l = dailyLogs[d];
+                                            return (
+                                                <div key={d} className="flex justify-between items-center text-xs border-b border-neutral-800 pb-2 last:border-0">
+                                                    <span className="text-neutral-400">{fmtBR(d)}</span>
+                                                    <span className="text-neutral-300">{l.kcal ?? '--'} kcal</span>
+                                                    <span className={`font-bold ${(l.proteina || 0) >= goals.meta_proteina_min ? 'text-green-500' : 'text-neutral-500'}`}>{l.proteina ?? '--'}g prot.</span>
+                                                </div>
+                                            );
+                                        })}
+                                        {Object.keys(dailyLogs).length === 0 && <p className="text-xs text-neutral-600">Nenhum registro ainda.</p>}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {view === 'inbody' && (
+                            <div className="space-y-4 fade-in">
+                                {!inbodyForm && <button onClick={startNewInbody} className="w-full bg-red-600 py-3 rounded-lg font-bold flex justify-center gap-2"><Icon name="Plus" size={16} /> Nova avaliação InBody</button>}
+
+                                {inbodyForm && (
+                                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-3">
+                                        <h3 className="font-bold text-sm">Nova avaliação</h3>
+                                        <div><label className="text-[10px] uppercase text-neutral-500 font-bold">Data</label><input type="date" value={inbodyForm.data} onChange={e => setInbodyForm({ ...inbodyForm, data: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {INBODY_FIELDS.map(([key, label]) => (
+                                                <div key={key}><label className="text-[9px] uppercase text-neutral-500 font-bold">{label}</label><input type="number" step="0.1" value={inbodyForm[key]} onChange={e => setInbodyForm({ ...inbodyForm, [key]: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
+                                            ))}
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <button onClick={saveInbodyForm} className="flex-1 bg-red-600 py-2.5 rounded-lg font-bold">Salvar</button>
+                                            <button onClick={() => setInbodyForm(null)} className="flex-1 bg-neutral-800 py-2.5 rounded-lg font-bold text-neutral-400">Cancelar</button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {inbody.length > 0 && (
+                                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-4">
+                                        <h3 className="font-bold text-sm">Evolução</h3>
+                                        <div><span className="text-xs text-neutral-500 font-bold">Peso (kg)</span><Chart series={inbody.map(a => ({ date: a.data, value: a.peso }))} color={COLORS.blue} unit="kg" target={{ min: goals.peso_alvo_min, max: goals.peso_alvo_max }} /></div>
+                                        <div><span className="text-xs text-neutral-500 font-bold">% Gordura</span><Chart series={inbody.map(a => ({ date: a.data, value: a.percentual_gordura }))} color={COLORS.orange} unit="%" target={{ min: goals.gordura_alvo_min, max: goals.gordura_alvo_max }} /></div>
+                                        <div><span className="text-xs text-neutral-500 font-bold">Massa muscular (kg)</span><Chart series={inbody.map(a => ({ date: a.data, value: a.massa_muscular }))} color={COLORS.green} unit="kg" /></div>
+                                        <div><span className="text-xs text-neutral-500 font-bold">Gordura visceral</span><Chart series={inbody.map(a => ({ date: a.data, value: a.gordura_visceral }))} color={COLORS.aqua} /></div>
+                                        <div><span className="text-xs text-neutral-500 font-bold">Cintura/Quadril</span><Chart series={inbody.map(a => ({ date: a.data, value: a.cintura_quadril }))} color={COLORS.violet} /></div>
+                                    </div>
+                                )}
+
+                                {inbody.length >= 2 && (
+                                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-3">
+                                        <h3 className="font-bold text-sm">Comparativo</h3>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <select value={compareA || ''} onChange={e => setCompareA(e.target.value)} className="bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-xs">
+                                                {inbody.map(a => <option key={a.id} value={a.id}>{fmtBR(a.data)}</option>)}
+                                            </select>
+                                            <select value={compareB || ''} onChange={e => setCompareB(e.target.value)} className="bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-xs">
+                                                {inbody.map(a => <option key={a.id} value={a.id}>{fmtBR(a.data)}</option>)}
+                                            </select>
+                                        </div>
+                                        {(() => {
+                                            const A = inbody.find(a => a.id === compareA); const B = inbody.find(a => a.id === compareB);
+                                            if (!A || !B) return null;
+                                            return (
+                                                <div className="mt-2">
+                                                    <CompareRow label="Peso" before={A.peso} after={B.peso} unit="kg" goodDir={null} />
+                                                    <CompareRow label="Massa muscular" before={A.massa_muscular} after={B.massa_muscular} unit="kg" goodDir="up" />
+                                                    <CompareRow label="Massa gordura" before={A.massa_gordura} after={B.massa_gordura} unit="kg" goodDir="down" />
+                                                    <CompareRow label="% Gordura" before={A.percentual_gordura} after={B.percentual_gordura} unit="%" goodDir="down" />
+                                                    <CompareRow label="Gordura visceral" before={A.gordura_visceral} after={B.gordura_visceral} unit="" goodDir="down" decimals={0} />
+                                                    <CompareRow label="Cintura/Quadril" before={A.cintura_quadril} after={B.cintura_quadril} unit="" goodDir="down" decimals={2} />
+                                                </div>
+                                            );
+                                        })()}
+                                    </div>
+                                )}
+
+                                <div className="space-y-2">
+                                    <h3 className="font-bold text-sm px-1">Histórico</h3>
+                                    {[...inbody].reverse().map(a => (
+                                        <div key={a.id} className="bg-neutral-900 border border-neutral-800 rounded-xl p-3 flex justify-between items-center">
+                                            <div>
+                                                <p className="text-sm font-bold">{fmtBR(a.data)}</p>
+                                                <p className="text-[11px] text-neutral-500">{a.peso}kg · {a.percentual_gordura}% gordura · visceral {a.gordura_visceral}</p>
+                                            </div>
+                                            <button onClick={() => deleteInbody(a.id)} className="text-neutral-600"><Icon name="Trash2" size={16} /></button>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {view === 'progresso' && (
+                            <div className="space-y-4 fade-in">
+                                <div className="flex gap-2">
+                                    {[7, 30, 90].map(p => (
+                                        <button key={p} onClick={() => setReportPeriod(p)} className={`flex-1 py-2 rounded-lg text-xs font-bold ${reportPeriod === p ? 'bg-red-600' : 'bg-neutral-900 border border-neutral-800 text-neutral-500'}`}>{p} dias</button>
+                                    ))}
+                                </div>
+
+                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                    <h3 className="font-bold text-sm mb-3 flex items-center gap-2"><Icon name="ClipboardList" size={16} className="text-red-500" /> Relatório · últimos {reportPeriod} dias</h3>
+                                    <div className="grid grid-cols-2 gap-3 mb-3">
+                                        <StatTile label="Adesão nutrição" value={`${daysWithLog}/${reportPeriod}`} sub="dias registrados" />
+                                        <StatTile label="Treinos feitos" value={`${periodSessions.length}/${expectedWorkouts}`} sub="esperado ~6/semana" />
+                                        <StatTile label="Kcal média" value={avgKcal != null ? avgKcal : '--'} sub={goals.meta_kcal_media_semanal ? `meta ~${goals.meta_kcal_media_semanal}` : ''} />
+                                        <StatTile label="Proteína média" value={avgProteina != null ? `${avgProteina}g` : '--'} sub={`meta ${goals.meta_proteina_min}-${goals.meta_proteina_max}g`} color={avgProteina != null && avgProteina < goals.meta_proteina_min ? COLORS.critical : undefined} />
+                                    </div>
+                                    {pesoSeries.length > 0 && <div><span className="text-xs text-neutral-500 font-bold">Peso no período</span><Chart series={pesoSeries} color={COLORS.blue} unit="kg" /></div>}
+                                </div>
+
+                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                    <h3 className="font-bold text-sm mb-3 flex items-center gap-2"><Icon name="TrendingUp" size={16} className="text-red-500" /> Progressão de carga</h3>
+                                    {exerciseNames.length > 0 ? (
+                                        <>
+                                            <select value={selectedExercise} onChange={e => setSelectedExercise(e.target.value)} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-xs mb-3">
+                                                {exerciseNames.map(n => <option key={n} value={n}>{n}</option>)}
+                                            </select>
+                                            <Chart series={exerciseSeries} color={COLORS.violet} unit="kg" />
+                                        </>
+                                    ) : <p className="text-xs text-neutral-600">Conclua treinos registrando carga para ver a progressão aqui.</p>}
+                                </div>
+                            </div>
+                        )}
+
+                        {view === 'config' && <div className="slide-in space-y-4">
+                            <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800 space-y-3">
+                                <div className="flex justify-between items-center">
+                                    <h3 className="text-sm font-bold">Perfil e metas</h3>
+                                    {!profileDraft && <button onClick={startEditProfile} className="text-[11px] text-red-500 font-bold">Editar</button>}
+                                </div>
+                                {!profileDraft ? (
+                                    <div className="text-xs text-neutral-400 space-y-1">
+                                        <p>{profile.nome} · {profile.idade} anos · {profile.altura_cm}cm</p>
+                                        <p>Meta peso: {goals.peso_alvo_min}-{goals.peso_alvo_max}kg · Meta gordura: {goals.gordura_alvo_min}-{goals.gordura_alvo_max}%</p>
+                                        <p>Meta proteína: {goals.meta_proteina_min}-{goals.meta_proteina_max}g/dia</p>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-2">
+                                        <input value={profileDraft.nome} onChange={e => setProfileDraft({ ...profileDraft, nome: e.target.value })} placeholder="Nome" className="w-full bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <input type="number" value={profileDraft.idade} onChange={e => setProfileDraft({ ...profileDraft, idade: e.target.value })} placeholder="Idade" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
+                                            <input type="number" value={profileDraft.altura_cm} onChange={e => setProfileDraft({ ...profileDraft, altura_cm: e.target.value })} placeholder="Altura (cm)" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <input type="number" value={profileDraft.peso_alvo_min} onChange={e => setProfileDraft({ ...profileDraft, peso_alvo_min: e.target.value })} placeholder="Peso alvo mín" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
+                                            <input type="number" value={profileDraft.peso_alvo_max} onChange={e => setProfileDraft({ ...profileDraft, peso_alvo_max: e.target.value })} placeholder="Peso alvo máx" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <input type="number" value={profileDraft.gordura_alvo_min} onChange={e => setProfileDraft({ ...profileDraft, gordura_alvo_min: e.target.value })} placeholder="% Gordura mín" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
+                                            <input type="number" value={profileDraft.gordura_alvo_max} onChange={e => setProfileDraft({ ...profileDraft, gordura_alvo_max: e.target.value })} placeholder="% Gordura máx" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <input type="number" value={profileDraft.meta_proteina_min} onChange={e => setProfileDraft({ ...profileDraft, meta_proteina_min: e.target.value })} placeholder="Proteína mín (g)" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
+                                            <input type="number" value={profileDraft.meta_proteina_max} onChange={e => setProfileDraft({ ...profileDraft, meta_proteina_max: e.target.value })} placeholder="Proteína máx (g)" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <button onClick={saveProfileDraft} className="flex-1 bg-red-600 py-2 rounded font-bold text-sm">Salvar</button>
+                                            <button onClick={() => setProfileDraft(null)} className="flex-1 bg-neutral-800 py-2 rounded font-bold text-sm text-neutral-400">Cancelar</button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800 space-y-3">
+                                <h3 className="text-sm font-bold">Suplementos</h3>
+                                <div className="space-y-2">
+                                    {supplements.map(s => (
+                                        <div key={s.id} className="flex justify-between items-center text-xs border-b border-neutral-800 pb-2 last:border-0">
+                                            <div><p className="font-bold text-neutral-300">{s.nome}</p><p className="text-neutral-500">{s.dose} · {s.horario} · {s.status}</p></div>
+                                            <button onClick={() => removeSupplement(s.id)} className="text-neutral-600"><Icon name="X" size={14} /></button>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="grid grid-cols-3 gap-2">
+                                    <input value={newSupplement.nome} onChange={e => setNewSupplement({ ...newSupplement, nome: e.target.value })} placeholder="Nome" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-xs" />
+                                    <input value={newSupplement.dose} onChange={e => setNewSupplement({ ...newSupplement, dose: e.target.value })} placeholder="Dose" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-xs" />
+                                    <input value={newSupplement.horario} onChange={e => setNewSupplement({ ...newSupplement, horario: e.target.value })} placeholder="Horário" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-xs" />
+                                </div>
+                                <button onClick={addSupplement} className="w-full bg-neutral-800 py-2 rounded text-xs font-bold text-neutral-300">+ Adicionar suplemento</button>
+                            </div>
+
+                            <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800">
+                                <h3 className="text-sm font-bold mb-2">Regras do coach (sempre válidas)</h3>
+                                <ul className="text-[11px] text-neutral-500 space-y-1 list-disc pl-4">
+                                    <li>Nunca incluir Tríceps Testa em nenhum treino</li>
+                                    <li>Nunca recomendar TRT ou hormônios exógenos</li>
+                                    <li>Nunca incentivar bulk agressivo</li>
+                                    <li>Sempre alertar se déficit calórico passar de 500 kcal abaixo do TDEE</li>
+                                    <li>Sempre monitorar cintura e peso dentro dos parâmetros mensais</li>
+                                    <li>1 dia ruim não desfaz semanas de protocolo — consistência acima de perfeição</li>
+                                </ul>
+                            </div>
+
+                            <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800"><h3 className="text-sm font-bold mb-2">Importar treinos</h3><textarea value={importText} onChange={e => setImportText(e.target.value)} className="w-full h-32 bg-neutral-950 border border-neutral-800 rounded p-2 text-sm mb-2" placeholder="Cole aqui..." /><button onClick={processImport} className="w-full bg-red-600 py-2 rounded font-bold">Processar</button></div>
+                            <button onClick={resetToDefault} className="w-full bg-neutral-800 py-3 rounded text-neutral-400 font-bold flex justify-center gap-2"><Icon name="RotateCcw" /> Restaurar Protocolo Padrão</button>
+                            <button onClick={handleLogout} className="w-full border border-neutral-800 py-3 rounded text-neutral-400 font-bold flex justify-center gap-2"><Icon name="LogOut" /> Sair</button>
+                            <button onClick={handleFullReset} className="w-full border border-red-900/30 text-red-800 py-3 rounded font-bold flex justify-center gap-2"><Icon name="Trash2" /> Reset Total</button>
+                        </div>}
+
                     </main>
-                    {view === 'workout' && <div className="fixed bottom-0 w-full p-4 bg-neutral-950/90 border-t border-red-900/30 backdrop-blur-md z-20"><div className="max-w-md mx-auto"><button onClick={finishWorkout} className="w-full bg-red-600 py-3.5 rounded-xl font-bold flex justify-center gap-2 shadow-lg shadow-red-900/20"><Icon name="Save" size={18}/> Salvar Treino</button></div></div>}
-                    {timerOpen && <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"><div className="bg-neutral-900 w-full max-w-sm p-6 rounded-2xl border border-neutral-800"><div className="flex justify-between mb-6"><h3 className="text-neutral-400">Descanso</h3><button onClick={closeTimer}><Icon name="Trash2"/></button></div><div className="text-center mb-8"><span className="text-7xl font-mono font-bold">{Math.floor(timeLeft/60)}:{timeLeft%60<10?'0':''}{timeLeft%60}</span></div><div className="grid grid-cols-4 gap-2 mb-4">{[30,45,60,90].map(t=><button key={t} onClick={()=>startTimer(t)} className="bg-neutral-800 py-2 rounded text-xs font-bold">{t}s</button>)}</div><button onClick={()=>setTimerRunning(!timerRunning)} className={`w-full py-3 rounded font-bold mb-2 ${timerRunning?'bg-neutral-800':'bg-green-600'}`}>{timerRunning?'Pausar':'Continuar'}</button><button onClick={()=>startTimer(timeLeft+10)} className="w-full py-3 rounded font-bold bg-neutral-950 border border-neutral-800">+10s</button></div></div>}
+
+                    {view === 'workout' && <div className="fixed bottom-0 w-full p-4 bg-neutral-950/90 border-t border-red-900/30 backdrop-blur-md z-20"><div className="max-w-md mx-auto"><button onClick={finishWorkout} className="w-full bg-red-600 py-3.5 rounded-xl font-bold flex justify-center gap-2 shadow-lg shadow-red-900/20"><Icon name="Save" size={18} /> Salvar Treino</button></div></div>}
+                    {bottomNavVisible && <BottomNav view={view} onChange={setView} />}
+                    {timerOpen && <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"><div className="bg-neutral-900 w-full max-w-sm p-6 rounded-2xl border border-neutral-800"><div className="flex justify-between mb-6"><h3 className="text-neutral-400">Descanso</h3><button onClick={closeTimer}><Icon name="Trash2" /></button></div><div className="text-center mb-8"><span className="text-7xl font-mono font-bold">{Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? '0' : ''}{timeLeft % 60}</span></div><div className="grid grid-cols-4 gap-2 mb-4">{[30, 45, 60, 90].map(t => <button key={t} onClick={() => startTimer(t)} className="bg-neutral-800 py-2 rounded text-xs font-bold">{t}s</button>)}</div><button onClick={() => setTimerRunning(!timerRunning)} className={`w-full py-3 rounded font-bold mb-2 ${timerRunning ? 'bg-neutral-800' : 'bg-green-600'}`}>{timerRunning ? 'Pausar' : 'Continuar'}</button><button onClick={() => startTimer(timeLeft + 10)} className="w-full py-3 rounded font-bold bg-neutral-950 border border-neutral-800">+10s</button></div></div>}
                 </div>
             );
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
-        
+
         // --- SERVICE WORKER REGISTRATION ---
         if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.protocol === 'http:')) {
             window.addEventListener('load', () => {
