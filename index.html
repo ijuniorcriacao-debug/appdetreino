@@ -69,96 +69,3927 @@
             grid: '#2c2c2a', muted: '#898781', axis: '#383835',
         };
 
-        // --- PROTOCOLO RAMON DINO TEAM (29/04/2026) ---
-        const RAMON_DINO_WORKOUTS = [
+        // --- PROGRAMA TIME HÍBRIDO — 12 SEMANAS (musculação 5x/semana + corrida 3x/semana) ---
+        const TOTAL_SEMANAS = 12;
+        const TIME_HIBRIDO_WORKOUTS = [
+    {
+        "id": "th_w1_rest_0",
+        "semana": 1,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 1 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w1_A",
+        "semana": 1,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 1 · TREINO A — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
             {
-                id: 'rd_a', letra: 'A', dia: 'Segunda', name: 'TREINO A — QUADRÍCEPS', grupo: 'Quadríceps',
-                duracao_min: 80, local_manha: ['CTRC', 'Oficial Gym'], complemento_noite: 'HYROX (se livre) ou só musculação (se formação)',
-                exercises: [
-                    { id: 'rd_a_1', name: 'Agachamento Livre', sets: '2x15 aquec + 4x10-12', note: '' },
-                    { id: 'rd_a_2', name: 'Leg Press 45° cluster', sets: '4x12 (4+4+4)', note: '3 blocos de 4 reps com 15s descanso' },
-                    { id: 'rd_a_3', name: 'Agachamento Hack', sets: '4x10-12', note: 'Máxima amplitude, cadência controlada' },
-                    { id: 'rd_a_4', name: 'Afundo no Smith com recuo', sets: '3x10-12', note: '' },
-                    { id: 'rd_a_5', name: 'Cadeira Extensora', sets: '4x falha', note: '2s pico de contração' },
-                    { id: 'rd_a_6', name: 'Panturrilha Sentado', sets: '5x15', note: '' },
-                ],
+                "id": "th_w1_A_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x15",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
             },
             {
-                id: 'rd_b', letra: 'B', dia: 'Terça', name: 'TREINO B — COSTAS E BÍCEPS', grupo: 'Costas e Bíceps',
-                duracao_min: 80, local_manha: ['CrossFit Bulls'], complemento_noite: 'BLOQUEADO — Catequese',
-                exercises: [
-                    { id: 'rd_b_1', name: 'Pulldown Corda', sets: '2x15 aquec + 3x10-12', note: '' },
-                    { id: 'rd_b_2', name: 'Puxador Costas Articulado cluster', sets: '4x12 (4+4+4)', note: '' },
-                    { id: 'rd_b_3', name: 'Puxador Costas Frente Triângulo', sets: '4x10-12', note: '' },
-                    { id: 'rd_b_4', name: 'Remada Curvada com Barra', sets: '4x10-12', note: 'Pegada pronada, tronco paralelo ao solo' },
-                    { id: 'rd_b_5', name: 'Remada Serrote Unilateral com Halter', sets: '4x10-12', note: '' },
-                    { id: 'rd_b_6', name: 'Remada Baixa Unilateral', sets: '3x10-12', note: 'Supinação palmar na concêntrica' },
-                    { id: 'rd_b_7', name: 'Rosca Scott', sets: '4x10-12', note: '' },
-                    { id: 'rd_b_8', name: 'Rosca Corda no Cross', sets: '4x10-12', note: '' },
-                ],
+                "id": "th_w1_A_02",
+                "name": "Agachamento Livre",
+                "sets": "4x15",
+                "note": "Meta de repetição"
             },
             {
-                id: 'rd_c', letra: 'C', dia: 'Quarta', name: 'TREINO C — PEITO E OMBRO', grupo: 'Peito e Ombro',
-                duracao_min: 80, local_manha: ['Oficial Gym', 'Smart Fit'], complemento_noite: 'CrossFit WOD — CrossFit Bulls',
-                exercises: [
-                    { id: 'rd_c_1', name: 'Supino Reto com Halter', sets: '2x15 aquec + 4x10-12', note: '' },
-                    { id: 'rd_c_2', name: 'Chest Press', sets: '4x10-12', note: 'Cadência controlada, amplitude completa' },
-                    { id: 'rd_c_3', name: 'Crossover Polia Média', sets: '4x10-12', note: 'Polia altura do ombro' },
-                    { id: 'rd_c_4', name: 'Voador', sets: '3x falha', note: '2s pico de contração' },
-                    { id: 'rd_c_5', name: 'Crossover Polia Baixa', sets: '4x10-12', note: 'Polia altura dos joelhos' },
-                    { id: 'rd_c_6', name: 'Elevação Frontal com Corda no Cross', sets: '3x10-12', note: '' },
-                    { id: 'rd_c_7', name: 'Desenvolvimento Sentado com Halter', sets: '4x10-12', note: 'Banco 80°' },
-                    { id: 'rd_c_8', name: 'Elevação Lateral', sets: '4x10-12', note: 'Back off última série' },
-                ],
+                "id": "th_w1_A_03",
+                "name": "Leg Press 45",
+                "sets": "4x15",
+                "note": "Meta de repetição"
             },
             {
-                id: 'rd_d', letra: 'D', dia: 'Quinta', name: 'TREINO D — POSTERIORES E ISQUIOTIBIAIS', grupo: 'Posteriores e Isquiotibiais',
-                duracao_min: 80, local_manha: ['CrossFit Bulls'], complemento_noite: 'Natação (Totalpass)',
-                exercises: [
-                    { id: 'rd_d_1', name: 'Cadeira Abdutora', sets: '4x15', note: '2s pico de contração' },
-                    { id: 'rd_d_2', name: 'Elevação Pélvica com Barra', sets: '4x10-12', note: '' },
-                    { id: 'rd_d_3', name: 'Levantamento Terra Sumo', sets: '4x8-10', note: '' },
-                    { id: 'rd_d_4', name: 'Agachamento Búlgaro', sets: '3x falha', note: '' },
-                    { id: 'rd_d_5', name: 'Mesa Flexora', sets: '5x10-12', note: 'Progressão de carga' },
-                    { id: 'rd_d_6', name: 'Cadeira Flexora', sets: '5x10-12', note: '2s pico de contração' },
-                    { id: 'rd_d_7', name: 'Panturrilha em Pé', sets: '5x15', note: '' },
-                ],
+                "id": "th_w1_A_04",
+                "name": "Cadeira Extensora",
+                "sets": "4x15",
+                "note": "Meta de repetição"
             },
             {
-                id: 'rd_e', letra: 'E', dia: 'Sexta', name: 'TREINO E — OMBRO, TRAPÉZIO E ABDOME', grupo: 'Ombro, Trapézio e Abdome',
-                duracao_min: 80, local_manha: ['CTRC', 'Bioritmo'], complemento_noite: 'Velocity/Spinning — ClassPass',
-                exercises: [
-                    { id: 'rd_e_1', name: 'Desenvolvimento Sentado com Halter', sets: '2x15 aquec + 4x10-12', note: '' },
-                    { id: 'rd_e_2', name: 'Elevação Lateral', sets: '4x10-12', note: '' },
-                    { id: 'rd_e_3', name: 'Remada Alta com Barra W', sets: '4x10-12', note: 'Smith, pegada mais aberta' },
-                    { id: 'rd_e_4', name: 'Crucifixo Inverso na Máquina', sets: '4x10-12', note: 'Back off última série' },
-                    { id: 'rd_e_5', name: 'Elevação Frontal com Barra W', sets: '4x10-12', note: 'Pegada supinada' },
-                    { id: 'rd_e_6', name: 'Encolhimento com Halter', sets: '4x15', note: '2s pico de contração' },
-                    { id: 'rd_e_7', name: 'Abdômen no Solo', sets: '4x15', note: 'Reto no solo' },
-                    { id: 'rd_e_8', name: 'Abdômen Infra Paralela', sets: '4x15', note: 'Flexionando o quadril' },
-                ],
+                "id": "th_w1_A_05",
+                "name": "Terra Deadlift",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
             },
             {
-                id: 'rd_f', letra: 'F', dia: 'Sábado', name: 'TREINO F — BÍCEPS E TRÍCEPS', grupo: 'Bíceps e Tríceps',
-                duracao_min: 70, local_manha: ['Gaviões', 'Smart Fit'], complemento_noite: 'Muay Thai — CrossFit Bulls',
-                exercises: [
-                    { id: 'rd_f_1', name: 'Mergulho na Paralela', sets: '4x10-12', note: 'SUBSTITUIU Tríceps Testa — nunca incluir Tríceps Testa' },
-                    { id: 'rd_f_2', name: 'Tríceps Francês Corda no Cross', sets: '4x10-12', note: '' },
-                    { id: 'rd_f_3', name: 'Tríceps Corda', sets: '4x10+falha', note: '1 drop em todas as séries' },
-                    { id: 'rd_f_4', name: 'Rosca Direta com Barra W', sets: '4x8-10', note: 'Progressão de carga' },
-                    { id: 'rd_f_5', name: 'Rosca Spider Banco 35°', sets: '4x10-12', note: '' },
-                    { id: 'rd_f_6', name: 'Rosca Corda no Cross', sets: '4x10+10', note: '+ Rosca inversa barra' },
-                ],
+                "id": "th_w1_A_06",
+                "name": "Cadeira Abdutora + 15 Panturrilha em Pé",
+                "sets": "4x15",
+                "note": "Bi-set"
             },
             {
-                id: 'rd_dom', letra: 'DSC', dia: 'Domingo', name: 'DOMINGO — DESCANSO ATIVO', grupo: 'Descanso Ativo',
-                duracao_min: null, local_manha: [], complemento_noite: '',
-                complemento: 'Caminhada leve — sem treino estruturado.',
-                exercises: [],
+                "id": "th_w1_A_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w1_B",
+        "semana": 1,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 1 · TREINO B — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:3 — Aquecimento: 1x Z1 5 min | Estímulo: 7x (Z3 30 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w1_B_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
             },
-        ];
-        const WEEKDAY_WORKOUT = ['rd_dom', 'rd_a', 'rd_b', 'rd_c', 'rd_d', 'rd_e', 'rd_f'];
+            {
+                "id": "th_w1_B_02",
+                "name": "Supino Reto c/ Halteres",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w1_B_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_B_04",
+                "name": "Voador (crossover Polia Alta)",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_B_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_B_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_B_07",
+                "name": "Rosca Bíceps Barra W",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_B_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w1_C",
+        "semana": 1,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 1 · TREINO C — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w1_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w1_C_02",
+                "name": "Puxada Alta Polia Ou Máquina",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_C_03",
+                "name": "Remada Baixa",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_C_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w1_C_05",
+                "name": "Remada Supinada",
+                "sets": "4x15",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w1_C_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w1_C_07",
+                "name": "Peck Deck Invertido (crucifixo Invertido)",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w1_D",
+        "semana": 1,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 1 · TREINO D — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:2 — Aquecimento: 1x Z1 5 min | Estímulo: 7x (Z3 45 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w1_D_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w1_D_02",
+                "name": "Supino Reto c/ Halteres",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w1_D_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_D_04",
+                "name": "Voador (crossover Polia Alta)",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_D_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_D_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_D_07",
+                "name": "Rosca Bíceps Barra W",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_D_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w1_E",
+        "semana": 1,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 1 · TREINO E — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w1_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w1_E_02",
+                "name": "Puxada Alta Polia Ou Máquina",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_E_03",
+                "name": "Remada Baixa",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w1_E_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w1_E_05",
+                "name": "Remada Supinada",
+                "sets": "4x15",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w1_E_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w1_E_07",
+                "name": "Peck Deck Invertido (crucifixo Invertido)",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w1_corrida_6",
+        "semana": 1,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 1 · CORRIDA — INTERVALADO 1:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 1:1 — Aquecimento: 1x Z1 5 min | Estímulo: 7x (Z3 1 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w2_rest_0",
+        "semana": 2,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 2 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w2_A",
+        "semana": 2,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 2 · TREINO A — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w2_A_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x15",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w2_A_02",
+                "name": "Agachamento Livre",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w2_A_03",
+                "name": "Leg Press 45",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w2_A_04",
+                "name": "Cadeira Extensora",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w2_A_05",
+                "name": "Terra Deadlift",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w2_A_06",
+                "name": "Cadeira Abdutora + 12 Panturrilha em Pé",
+                "sets": "4x12",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w2_A_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w2_B",
+        "semana": 2,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 2 · TREINO B — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:3 — Aquecimento: 1x Z1 5 min | Estímulo: 8x (Z3 30 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w2_B_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w2_B_02",
+                "name": "Supino Reto c/ Halteres",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w2_B_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_B_04",
+                "name": "Voador (crossover Polia Alta)",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_B_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_B_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_B_07",
+                "name": "Rosca Bíceps Barra W",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_B_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w2_C",
+        "semana": 2,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 2 · TREINO C — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w2_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w2_C_02",
+                "name": "Puxada Alta Polia Ou Máquina",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_C_03",
+                "name": "Remada Baixa",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_C_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w2_C_05",
+                "name": "Remada Supinada",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w2_C_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w2_C_07",
+                "name": "Peck Deck Invertido (crucifixo Invertido)",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w2_D",
+        "semana": 2,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 2 · TREINO D — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:2 — Aquecimento: 1x Z1 5 min | Estímulo: 8x (Z3 45 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w2_D_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w2_D_02",
+                "name": "Supino Reto c/ Halteres",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w2_D_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_D_04",
+                "name": "Voador (crossover Polia Alta)",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_D_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_D_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_D_07",
+                "name": "Rosca Bíceps Barra W",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_D_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w2_E",
+        "semana": 2,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 2 · TREINO E — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w2_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w2_E_02",
+                "name": "Puxada Alta Polia Ou Máquina",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_E_03",
+                "name": "Remada Baixa",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w2_E_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w2_E_05",
+                "name": "Remada Supinada",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w2_E_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w2_E_07",
+                "name": "Peck Deck Invertido (crucifixo Invertido)",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w2_corrida_6",
+        "semana": 2,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 2 · CORRIDA — INTERVALADO 1:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 1:1 — Aquecimento: 1x Z1 5 min | Estímulo: 8x (Z3 1 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w3_rest_0",
+        "semana": 3,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 3 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w3_A",
+        "semana": 3,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 3 · TREINO A — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w3_A_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x15",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w3_A_02",
+                "name": "Agachamento Livre",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w3_A_03",
+                "name": "Leg Press 45",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w3_A_04",
+                "name": "Cadeira Extensora",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w3_A_05",
+                "name": "Terra Deadlift",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w3_A_06",
+                "name": "Cadeira Abdutora + 10 Panturrilha em Pé",
+                "sets": "4x10",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w3_A_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w3_B",
+        "semana": 3,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 3 · TREINO B — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:3 — Aquecimento: 1x Z1 5 min | Estímulo: 9x (Z3 30 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w3_B_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w3_B_02",
+                "name": "Supino Reto c/ Halteres",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w3_B_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_B_04",
+                "name": "Voador (crossover Polia Alta)",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_B_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_B_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_B_07",
+                "name": "Rosca Bíceps Barra W",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_B_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w3_C",
+        "semana": 3,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 3 · TREINO C — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w3_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w3_C_02",
+                "name": "Puxada Alta Polia Ou Máquina",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_C_03",
+                "name": "Remada Baixa",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_C_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w3_C_05",
+                "name": "Remada Supinada",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w3_C_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w3_C_07",
+                "name": "Peck Deck Invertido (crucifixo Invertido)",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w3_D",
+        "semana": 3,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 3 · TREINO D — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:2 — Aquecimento: 1x Z1 5 min | Estímulo: 9x (Z3 45 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w3_D_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w3_D_02",
+                "name": "Supino Reto c/ Halteres",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w3_D_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_D_04",
+                "name": "Voador (crossover Polia Alta)",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_D_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_D_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_D_07",
+                "name": "Rosca Bíceps Barra W",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_D_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w3_E",
+        "semana": 3,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 3 · TREINO E — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w3_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w3_E_02",
+                "name": "Puxada Alta Polia Ou Máquina",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_E_03",
+                "name": "Remada Baixa",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w3_E_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w3_E_05",
+                "name": "Remada Supinada",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w3_E_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w3_E_07",
+                "name": "Peck Deck Invertido (crucifixo Invertido)",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w3_corrida_6",
+        "semana": 3,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 3 · CORRIDA — INTERVALADO 1:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 1:1 — Aquecimento: 1x Z1 5 min | Estímulo: 9x (Z3 1 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w4_rest_0",
+        "semana": 4,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 4 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w4_A",
+        "semana": 4,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 4 · TREINO A — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w4_A_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x15",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w4_A_02",
+                "name": "Agachamento Livre",
+                "sets": "4x15",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w4_A_03",
+                "name": "Leg Press 45",
+                "sets": "4x15",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w4_A_04",
+                "name": "Cadeira Extensora",
+                "sets": "4x15",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w4_A_05",
+                "name": "Terra Deadlift",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w4_A_06",
+                "name": "Cadeira Abdutora + 15 Panturrilha em Pé",
+                "sets": "4x15",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w4_A_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w4_B",
+        "semana": 4,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 4 · TREINO B — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:3 — Aquecimento: 1x Z1 5 min | Estímulo: 7x (Z3 30 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w4_B_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w4_B_02",
+                "name": "Supino Reto c/ Halteres",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w4_B_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_B_04",
+                "name": "Voador (crossover Polia Alta)",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_B_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_B_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_B_07",
+                "name": "Rosca Bíceps Barra W",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_B_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w4_C",
+        "semana": 4,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 4 · TREINO C — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w4_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w4_C_02",
+                "name": "Puxada Alta Polia Ou Máquina",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_C_03",
+                "name": "Remada Baixa",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_C_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w4_C_05",
+                "name": "Remada Supinada",
+                "sets": "4x15",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w4_C_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w4_C_07",
+                "name": "Peck Deck Invertido (crucifixo Invertido)",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w4_D",
+        "semana": 4,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 4 · TREINO D — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:2 — Aquecimento: 1x Z1 5 min | Estímulo: 7x (Z3 45 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w4_D_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w4_D_02",
+                "name": "Supino Reto c/ Halteres",
+                "sets": "4x(15-12-10-8)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w4_D_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_D_04",
+                "name": "Voador (crossover Polia Alta)",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_D_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_D_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_D_07",
+                "name": "Rosca Bíceps Barra W",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_D_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w4_E",
+        "semana": 4,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 4 · TREINO E — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w4_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w4_E_02",
+                "name": "Puxada Alta Polia Ou Máquina",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_E_03",
+                "name": "Remada Baixa",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w4_E_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w4_E_05",
+                "name": "Remada Supinada",
+                "sets": "4x15",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w4_E_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w4_E_07",
+                "name": "Peck Deck Invertido (crucifixo Invertido)",
+                "sets": "4x15",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w4_corrida_6",
+        "semana": 4,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 4 · CORRIDA — INTERVALADO 1:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Base"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 1:1 — Aquecimento: 1x Z1 5 min | Estímulo: 7x (Z3 1 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w5_rest_0",
+        "semana": 5,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 5 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w5_A",
+        "semana": 5,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 5 · TREINO A — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w5_A_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w5_A_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_A_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_A_04",
+                "name": "Peckdeck",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_A_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_A_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_A_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_A_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w5_B",
+        "semana": 5,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 5 · TREINO B — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:2 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 1 min + Z1 2 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w5_B_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x15",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w5_B_02",
+                "name": "Agachamento Livre",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w5_B_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w5_B_04",
+                "name": "Agachamento Sumô",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w5_B_05",
+                "name": "Flexora Deitada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w5_B_06",
+                "name": "Cadeira Abdutora + 12 Panturrilha em Pé",
+                "sets": "4x12",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w5_B_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w5_C",
+        "semana": 5,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 5 · TREINO C — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w5_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w5_C_02",
+                "name": "Puxada Graviton",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_C_03",
+                "name": "Remada Baixa",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_C_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w5_C_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w5_C_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w5_C_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w5_D",
+        "semana": 5,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 5 · TREINO D — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:1 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 90 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w5_D_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x15",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w5_D_02",
+                "name": "Agachamento Livre",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w5_D_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w5_D_04",
+                "name": "Agachamento Sumô",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w5_D_05",
+                "name": "Flexora Deitada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w5_D_06",
+                "name": "Cadeira Abdutora + 12 Panturrilha em Pé",
+                "sets": "4x12",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w5_D_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w5_E",
+        "semana": 5,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 5 · TREINO E — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w5_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w5_E_02",
+                "name": "Puxada Graviton",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_E_03",
+                "name": "Remada Baixa",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w5_E_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w5_E_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w5_E_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w5_E_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w5_corrida_6",
+        "semana": 5,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 5 · CORRIDA — INTERVALADO 2:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 2:1 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 2 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w6_rest_0",
+        "semana": 6,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 6 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w6_A",
+        "semana": 6,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 6 · TREINO A — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w6_A_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w6_A_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_A_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_A_04",
+                "name": "Peckdeck",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_A_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_A_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_A_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_A_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w6_B",
+        "semana": 6,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 6 · TREINO B — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:2 — Aquecimento: 1x Z1 5 min | Estímulo: 6x (Z3 1 min + Z1 2 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w6_B_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x10",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w6_B_02",
+                "name": "Agachamento Livre",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w6_B_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w6_B_04",
+                "name": "Agachamento Sumô",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w6_B_05",
+                "name": "Flexora Deitada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w6_B_06",
+                "name": "Cadeira Abdutora + 10 Panturrilha em Pé",
+                "sets": "4x10",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w6_B_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w6_C",
+        "semana": 6,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 6 · TREINO C — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w6_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w6_C_02",
+                "name": "Puxada Graviton",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_C_03",
+                "name": "Remada Baixa",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_C_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w6_C_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w6_C_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w6_C_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w6_D",
+        "semana": 6,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 6 · TREINO D — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:1 — Aquecimento: 1x Z1 5 min | Estímulo: 6x (Z3 90 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w6_D_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x10",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w6_D_02",
+                "name": "Agachamento Livre",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w6_D_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w6_D_04",
+                "name": "Agachamento Sumô",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w6_D_05",
+                "name": "Flexora Deitada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w6_D_06",
+                "name": "Cadeira Abdutora + 10 Panturrilha em Pé",
+                "sets": "4x10",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w6_D_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w6_E",
+        "semana": 6,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 6 · TREINO E — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w6_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w6_E_02",
+                "name": "Puxada Graviton",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_E_03",
+                "name": "Remada Baixa",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w6_E_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w6_E_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w6_E_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w6_E_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w6_corrida_6",
+        "semana": 6,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 6 · CORRIDA — INTERVALADO 2:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 2:1 — Aquecimento: 1x Z1 5 min | Estímulo: 6x (Z3 2 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w7_rest_0",
+        "semana": 7,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 7 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w7_A",
+        "semana": 7,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 7 · TREINO A — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w7_A_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w7_A_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_A_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_A_04",
+                "name": "Peckdeck",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_A_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_A_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_A_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_A_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w7_B",
+        "semana": 7,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 7 · TREINO B — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:2 — Aquecimento: 1x Z1 5 min | Estímulo: 7x (Z3 1 min + Z1 2 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w7_B_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x08",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w7_B_02",
+                "name": "Agachamento Livre",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w7_B_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w7_B_04",
+                "name": "Agachamento Sumô",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w7_B_05",
+                "name": "Flexora Deitada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w7_B_06",
+                "name": "Cadeira Abdutora + 08 Panturrilha em Pé",
+                "sets": "4x08",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w7_B_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w7_C",
+        "semana": 7,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 7 · TREINO C — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w7_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w7_C_02",
+                "name": "Puxada Graviton",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_C_03",
+                "name": "Remada Baixa",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_C_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w7_C_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w7_C_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w7_C_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w7_D",
+        "semana": 7,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 7 · TREINO D — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:1 — Aquecimento: 1x Z1 5 min | Estímulo: 7x (Z3 90 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w7_D_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x08",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w7_D_02",
+                "name": "Agachamento Livre",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w7_D_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w7_D_04",
+                "name": "Agachamento Sumô",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w7_D_05",
+                "name": "Flexora Deitada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w7_D_06",
+                "name": "Cadeira Abdutora + 08 Panturrilha em Pé",
+                "sets": "4x08",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w7_D_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w7_E",
+        "semana": 7,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 7 · TREINO E — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w7_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w7_E_02",
+                "name": "Puxada Graviton",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_E_03",
+                "name": "Remada Baixa",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w7_E_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w7_E_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w7_E_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w7_E_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w7_corrida_6",
+        "semana": 7,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 7 · CORRIDA — INTERVALADO 2:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 2:1 — Aquecimento: 1x Z1 5 min | Estímulo: 7x (Z3 2 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w8_rest_0",
+        "semana": 8,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 8 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w8_A",
+        "semana": 8,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 8 · TREINO A — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w8_A_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w8_A_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_A_03",
+                "name": "Supino Inclinado c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_A_04",
+                "name": "Peckdeck",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_A_05",
+                "name": "Elevação Frontal c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_A_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_A_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_A_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w8_B",
+        "semana": 8,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 8 · TREINO B — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:2 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 1 min + Z1 2 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w8_B_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x15",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w8_B_02",
+                "name": "Agachamento Livre",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w8_B_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w8_B_04",
+                "name": "Agachamento Sumô",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w8_B_05",
+                "name": "Flexora Deitada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w8_B_06",
+                "name": "Cadeira Abdutora + 12 Panturrilha em Pé",
+                "sets": "4x12",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w8_B_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w8_C",
+        "semana": 8,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 8 · TREINO C — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w8_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w8_C_02",
+                "name": "Puxada Graviton",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_C_03",
+                "name": "Remada Baixa",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_C_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w8_C_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w8_C_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w8_C_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w8_D",
+        "semana": 8,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 8 · TREINO D — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 1:1 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 90 seg + Z1 90 seg) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w8_D_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x15",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w8_D_02",
+                "name": "Agachamento Livre",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w8_D_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w8_D_04",
+                "name": "Agachamento Sumô",
+                "sets": "4x12",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w8_D_05",
+                "name": "Flexora Deitada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w8_D_06",
+                "name": "Cadeira Abdutora + 12 Panturrilha em Pé",
+                "sets": "4x12",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w8_D_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w8_E",
+        "semana": 8,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 8 · TREINO E — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w8_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w8_E_02",
+                "name": "Puxada Graviton",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_E_03",
+                "name": "Remada Baixa",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w8_E_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w8_E_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w8_E_06",
+                "name": "Tríceps na Barra Reta",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w8_E_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x12",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w8_corrida_6",
+        "semana": 8,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 8 · CORRIDA — INTERVALADO 2:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Consolidação"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 2:1 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 2 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w9_rest_0",
+        "semana": 9,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 9 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w9_A",
+        "semana": 9,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 9 · TREINO A — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w9_A_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w9_A_02",
+                "name": "Puxada Graviton",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_A_03",
+                "name": "Remada Curvada com Barra",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w9_A_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w9_A_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w9_A_06",
+                "name": "Tríceps Corda",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_A_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w9_B",
+        "semana": 9,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 9 · TREINO B — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 2:3 — Aquecimento: 1x Z1 5 min | Estímulo: 4x (Z3 2 min + Z1 3 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w9_B_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x10",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w9_B_02",
+                "name": "Agachamento Smith",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w9_B_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w9_B_04",
+                "name": "Leg Press 45",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w9_B_05",
+                "name": "Flexora Sentada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w9_B_06",
+                "name": "Cadeira Abdutora + 10 Panturrilha em Pé",
+                "sets": "4x10",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w9_B_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w9_C",
+        "semana": 9,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 9 · TREINO C — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w9_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w9_C_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_C_03",
+                "name": "Crucifixo Inclinado c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_C_04",
+                "name": "Voador (cross Over Polia Alta)",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_C_05",
+                "name": "Desenvolvimento Arnold",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_C_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_C_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_C_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w9_D",
+        "semana": 9,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 9 · TREINO D — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 3:2 — Aquecimento: 1x Z1 5 min | Estímulo: 4x (Z3 3 min + Z1 2 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w9_D_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x10",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w9_D_02",
+                "name": "Agachamento Smith",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w9_D_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w9_D_04",
+                "name": "Leg Press 45",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w9_D_05",
+                "name": "Flexora Sentada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w9_D_06",
+                "name": "Cadeira Abdutora + 10 Panturrilha em Pé",
+                "sets": "4x10",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w9_D_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w9_E",
+        "semana": 9,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 9 · TREINO E — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w9_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w9_E_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_E_03",
+                "name": "Crucifixo Inclinado c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_E_04",
+                "name": "Voador (cross Over Polia Alta)",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_E_05",
+                "name": "Desenvolvimento Arnold",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_E_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_E_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w9_E_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w9_corrida_6",
+        "semana": 9,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 9 · CORRIDA — INTERVALADO 4:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 4:1 — Aquecimento: 1x Z1 5 min | Estímulo: 4x (Z3 4 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w10_rest_0",
+        "semana": 10,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 10 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w10_A",
+        "semana": 10,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 10 · TREINO A — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w10_A_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w10_A_02",
+                "name": "Puxada Graviton",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_A_03",
+                "name": "Remada Curvada com Barra",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w10_A_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w10_A_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w10_A_06",
+                "name": "Tríceps Corda",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_A_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w10_B",
+        "semana": 10,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 10 · TREINO B — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 2:3 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 2 min + Z1 3 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w10_B_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x08",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w10_B_02",
+                "name": "Agachamento Smith",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w10_B_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w10_B_04",
+                "name": "Leg Press 45",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w10_B_05",
+                "name": "Flexora Sentada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w10_B_06",
+                "name": "Cadeira Abdutora + 08 Panturrilha em Pé",
+                "sets": "4x08",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w10_B_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w10_C",
+        "semana": 10,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 10 · TREINO C — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w10_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w10_C_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_C_03",
+                "name": "Crucifixo Inclinado c/ Halteres",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_C_04",
+                "name": "Voador (cross Over Polia Alta)",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_C_05",
+                "name": "Desenvolvimento Arnold",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_C_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_C_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_C_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w10_D",
+        "semana": 10,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 10 · TREINO D — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 3:2 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 3 min + Z1 2 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w10_D_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x08",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w10_D_02",
+                "name": "Agachamento Smith",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w10_D_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w10_D_04",
+                "name": "Leg Press 45",
+                "sets": "4x08",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w10_D_05",
+                "name": "Flexora Sentada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w10_D_06",
+                "name": "Cadeira Abdutora + 08 Panturrilha em Pé",
+                "sets": "4x08",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w10_D_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w10_E",
+        "semana": 10,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 10 · TREINO E — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w10_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w10_E_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_E_03",
+                "name": "Crucifixo Inclinado c/ Halteres",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_E_04",
+                "name": "Voador (cross Over Polia Alta)",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_E_05",
+                "name": "Desenvolvimento Arnold",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_E_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_E_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w10_E_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x08",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w10_corrida_6",
+        "semana": 10,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 10 · CORRIDA — INTERVALADO 4:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 4:1 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 4 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w11_rest_0",
+        "semana": 11,
+        "weekday_idx": 0,
+        "letra": "DSC",
+        "dia": "Domingo",
+        "name": "SEMANA 11 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w11_A",
+        "semana": 11,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 11 · TREINO A — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w11_A_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w11_A_02",
+                "name": "Puxada Graviton",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_A_03",
+                "name": "Remada Curvada com Barra",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w11_A_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w11_A_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w11_A_06",
+                "name": "Tríceps Corda",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_A_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w11_B",
+        "semana": 11,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 11 · TREINO B — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 2:3 — Aquecimento: 1x Z1 5 min | Estímulo: 6x (Z3 2 min + Z1 3 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w11_B_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x10",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w11_B_02",
+                "name": "Agachamento Smith",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w11_B_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x06",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w11_B_04",
+                "name": "Leg Press 45",
+                "sets": "4x06",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w11_B_05",
+                "name": "Flexora Sentada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w11_B_06",
+                "name": "Cadeira Abdutora + 06 Panturrilha em Pé",
+                "sets": "4x06",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w11_B_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w11_C",
+        "semana": 11,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 11 · TREINO C — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w11_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w11_C_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_C_03",
+                "name": "Crucifixo Inclinado c/ Halteres",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_C_04",
+                "name": "Voador (cross Over Polia Alta)",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_C_05",
+                "name": "Desenvolvimento Arnold",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_C_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_C_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_C_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w11_D",
+        "semana": 11,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 11 · TREINO D — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 3:2 — Aquecimento: 1x Z1 5 min | Estímulo: 6x (Z3 3 min + Z1 2 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w11_D_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x10",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w11_D_02",
+                "name": "Agachamento Smith",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w11_D_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x06",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w11_D_04",
+                "name": "Leg Press 45",
+                "sets": "4x06",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w11_D_05",
+                "name": "Flexora Sentada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w11_D_06",
+                "name": "Cadeira Abdutora + 06 Panturrilha em Pé",
+                "sets": "4x06",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w11_D_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w11_E",
+        "semana": 11,
+        "weekday_idx": 5,
+        "letra": "E",
+        "dia": "Sexta",
+        "name": "SEMANA 11 · TREINO E — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w11_E_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w11_E_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_E_03",
+                "name": "Crucifixo Inclinado c/ Halteres",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_E_04",
+                "name": "Voador (cross Over Polia Alta)",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_E_05",
+                "name": "Desenvolvimento Arnold",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_E_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_E_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w11_E_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x06",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w11_corrida_6",
+        "semana": 11,
+        "weekday_idx": 6,
+        "letra": "COR",
+        "dia": "Sábado",
+        "name": "SEMANA 11 · CORRIDA — INTERVALADO 4:1",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "complemento": "INTERVALADO 4:1 — Aquecimento: 1x Z1 5 min | Estímulo: 6x (Z3 4 min + Z1 1 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w12_corrida_0",
+        "semana": 12,
+        "weekday_idx": 0,
+        "letra": "COR",
+        "dia": "Domingo",
+        "name": "SEMANA 12 · CORRIDA — PROVA ALVO 3KM",
+        "grupo": "Corrida",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "complemento": "PROVA ALVO 3KM — Aquecimento: 1x Z1 5 min | Prova: 1x Z3 3 km | Volta à calma: 1x Z1 5 min",
+        "exercises": []
+    },
+    {
+        "id": "th_w12_A",
+        "semana": 12,
+        "weekday_idx": 1,
+        "letra": "A",
+        "dia": "Segunda",
+        "name": "SEMANA 12 · TREINO A — COSTAS E TRÍCEPS",
+        "grupo": "COSTAS E TRÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w12_A_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w12_A_02",
+                "name": "Puxada Graviton",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w12_A_03",
+                "name": "Remada Curvada com Barra",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w12_A_04",
+                "name": "Pulldown",
+                "sets": "4x",
+                "note": "Dropset"
+            },
+            {
+                "id": "th_w12_A_05",
+                "name": "Remada Cavalinho",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w12_A_06",
+                "name": "Tríceps Corda",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w12_A_07",
+                "name": "Face Pull c/ Corda",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w12_B",
+        "semana": 12,
+        "weekday_idx": 2,
+        "letra": "B",
+        "dia": "Terça",
+        "name": "SEMANA 12 · TREINO B — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 2:3 — Aquecimento: 1x Z1 5 min | Estímulo: 5x (Z3 2 min + Z1 3 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w12_B_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x10",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w12_B_02",
+                "name": "Agachamento Smith",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w12_B_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w12_B_04",
+                "name": "Leg Press 45",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w12_B_05",
+                "name": "Flexora Sentada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w12_B_06",
+                "name": "Cadeira Abdutora + 10 Panturrilha em Pé",
+                "sets": "4x10",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w12_B_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w12_C",
+        "semana": 12,
+        "weekday_idx": 3,
+        "letra": "C",
+        "dia": "Quarta",
+        "name": "SEMANA 12 · TREINO C — PEITO, OMBRO E BÍCEPS",
+        "grupo": "PEITO, OMBRO E BÍCEPS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "",
+        "exercises": [
+            {
+                "id": "th_w12_C_01",
+                "name": "Aquecimento/mobilidade Pré Treino de Superiores",
+                "sets": "—",
+                "note": "Aquecimento"
+            },
+            {
+                "id": "th_w12_C_02",
+                "name": "Supino Reto c/ Barra",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w12_C_03",
+                "name": "Crucifixo Inclinado c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w12_C_04",
+                "name": "Voador (cross Over Polia Alta)",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w12_C_05",
+                "name": "Desenvolvimento Arnold",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w12_C_06",
+                "name": "Elevação Lateral c/ Halteres",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w12_C_07",
+                "name": "Rosca Bíceps Martelo",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            },
+            {
+                "id": "th_w12_C_08",
+                "name": "Bíceps Concentrado",
+                "sets": "4x10",
+                "note": "Meta de repetições"
+            }
+        ]
+    },
+    {
+        "id": "th_w12_D",
+        "semana": 12,
+        "weekday_idx": 4,
+        "letra": "D",
+        "dia": "Quinta",
+        "name": "SEMANA 12 · TREINO D — MEMBROS INFERIORES + ABS",
+        "grupo": "MEMBROS INFERIORES + ABS",
+        "duracao_min": null,
+        "local_manha": [
+            "Etapa Alvo"
+        ],
+        "complemento_noite": "🏃 Corrida: INTERVALADO 3:2 — Aquecimento: 1x Z1 5 min | Estímulo: 6x (Z3 3 min + Z1 2 min) | Volta à calma: 1x Z1 5 min",
+        "exercises": [
+            {
+                "id": "th_w12_D_01",
+                "name": "Agachamento c/ Peso do Corpo",
+                "sets": "4x10",
+                "note": "Aquecimento · Flexibilidade e Mobilidade Inferiores"
+            },
+            {
+                "id": "th_w12_D_02",
+                "name": "Agachamento Smith",
+                "sets": "4x(15-12-10-08)",
+                "note": "Pirâmide"
+            },
+            {
+                "id": "th_w12_D_03",
+                "name": "Cadeira Extensora",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w12_D_04",
+                "name": "Leg Press 45",
+                "sets": "4x10",
+                "note": "Meta de repetição"
+            },
+            {
+                "id": "th_w12_D_05",
+                "name": "Flexora Sentada",
+                "sets": "4x6+12",
+                "note": "6 pesado + 12 leve"
+            },
+            {
+                "id": "th_w12_D_06",
+                "name": "Cadeira Abdutora + 10 Panturrilha em Pé",
+                "sets": "4x10",
+                "note": "Bi-set"
+            },
+            {
+                "id": "th_w12_D_07",
+                "name": "Sequência Tabata",
+                "sets": "2x",
+                "note": "Abdominal"
+            }
+        ]
+    },
+    {
+        "id": "th_w12_rest_5",
+        "semana": 12,
+        "weekday_idx": 5,
+        "letra": "DSC",
+        "dia": "Sexta",
+        "name": "SEMANA 12 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    },
+    {
+        "id": "th_w12_rest_6",
+        "semana": 12,
+        "weekday_idx": 6,
+        "letra": "DSC",
+        "dia": "Sábado",
+        "name": "SEMANA 12 · DESCANSO",
+        "grupo": "Descanso",
+        "duracao_min": null,
+        "local_manha": [],
+        "complemento_noite": "",
+        "complemento": "Descanso — sem treino estruturado.",
+        "exercises": []
+    }
+];
         const WEEKDAY_NAMES = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+        const getWeekWorkouts = (workouts, semana) => workouts.filter(w => w.semana === semana).sort((a, b) => a.weekday_idx - b.weekday_idx);
+        const getWeekdayWorkoutIds = (weekWorkouts) => {
+            const ids = [null, null, null, null, null, null, null];
+            weekWorkouts.forEach(w => { ids[w.weekday_idx] = w.id; });
+            return ids;
+        };
 
         // --- DADOS SEED (histórico real do documento) ---
         const DEFAULT_PROFILE = { nome: 'Ivanir dos Santos Junior', apelido: 'Junior', idade: 37, altura_cm: 180 };
@@ -322,7 +4153,8 @@
             const [userName, setUserName] = React.useState('');
             const [tempName, setTempName] = React.useState('');
 
-            const [workouts, setWorkouts] = React.useState(RAMON_DINO_WORKOUTS);
+            const [workouts, setWorkouts] = React.useState(TIME_HIBRIDO_WORKOUTS);
+            const [currentWeek, setCurrentWeek] = React.useState(1);
             const [activeWorkoutId, setActiveWorkoutId] = React.useState(null);
             const [history, setHistory] = React.useState({});
             const [sessionData, setSessionData] = React.useState({});
@@ -361,6 +4193,7 @@
                 const sib = localStorage.getItem('gymInBodyV1'); if (sib) setInbody(JSON.parse(sib));
                 const sdl = localStorage.getItem('gymDailyLogsV1'); if (sdl) setDailyLogs(JSON.parse(sdl));
                 const su = localStorage.getItem('gymUserName'); if (su) { setUserName(su); setView('dashboard'); }
+                const scw = localStorage.getItem('gymCurrentWeekV1'); if (scw) setCurrentWeek(Number(scw));
                 if (window.lucide) window.lucide.createIcons();
             }, []);
 
@@ -377,6 +4210,7 @@
             const saveSupplements = (s) => { setSupplements(s); localStorage.setItem('gymSupplementsV1', JSON.stringify(s)); };
             const saveInbody = (a) => { setInbody(a); localStorage.setItem('gymInBodyV1', JSON.stringify(a)); };
             const saveDailyLogs = (d) => { setDailyLogs(d); localStorage.setItem('gymDailyLogsV1', JSON.stringify(d)); };
+            const changeWeek = (n) => { const w = Math.min(TOTAL_SEMANAS, Math.max(1, n)); setCurrentWeek(w); localStorage.setItem('gymCurrentWeekV1', String(w)); };
 
             const handleLogin = (e) => {
                 e.preventDefault();
@@ -457,7 +4291,7 @@
                 } catch (e) { alert('Erro ao processar.'); }
             };
 
-            const resetToDefault = () => { if (confirm("Restaurar o protocolo padrão (Ramon Dino Team)?")) { setWorkouts(RAMON_DINO_WORKOUTS); localStorage.removeItem('gymWorkoutsV3'); setView('treinos'); } };
+            const resetToDefault = () => { if (confirm("Restaurar o protocolo padrão (Time Híbrido — 12 semanas)?")) { setWorkouts(TIME_HIBRIDO_WORKOUTS); localStorage.removeItem('gymWorkoutsV3'); setView('treinos'); } };
             const startWorkout = (id) => { setActiveWorkoutId(id); setSessionData({}); setView('workout'); };
             const toggleExercise = (id) => { setSessionData(prev => ({ ...prev, [id]: { ...prev[id], done: !prev[id]?.done } })); };
             const updateWeight = (id, w) => { setSessionData(prev => ({ ...prev, [id]: { ...prev[id], weight: w } })); };
@@ -549,8 +4383,11 @@
             const latestPeso = todayLog.peso_manha ?? (lastInbody ? lastInbody.peso : null);
             const latestGordura = lastInbody ? lastInbody.percentual_gordura : null;
             const weekdayIdx = new Date().getDay();
-            const todayWorkoutId = WEEKDAY_WORKOUT[weekdayIdx];
+            const weekWorkouts = React.useMemo(() => getWeekWorkouts(workouts, currentWeek), [workouts, currentWeek]);
+            const weekdayWorkoutIds = React.useMemo(() => getWeekdayWorkoutIds(weekWorkouts), [weekWorkouts]);
+            const todayWorkoutId = weekdayWorkoutIds[weekdayIdx];
             const todayWorkout = workouts.find(w => w.id === todayWorkoutId);
+            const currentEtapa = weekWorkouts.find(w => w.local_manha && w.local_manha.length)?.local_manha[0] || '';
 
             const alerts = React.useMemo(() => {
                 const list = [];
@@ -651,13 +4488,13 @@
                                 <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
                                     <div className="flex justify-between items-center mb-3">
                                         <h3 className="font-bold text-sm flex items-center gap-2"><Icon name="Dumbbell" size={16} className="text-red-500" /> Treino de hoje</h3>
-                                        <span className="text-[10px] text-neutral-500">{WEEKDAY_NAMES[weekdayIdx]}</span>
+                                        <span className="text-[10px] text-neutral-500">{WEEKDAY_NAMES[weekdayIdx]} · Semana {currentWeek}</span>
                                     </div>
                                     {todayWorkout && todayWorkout.exercises && todayWorkout.exercises.length > 0 ? (
                                         <div>
                                             <p className="text-sm text-neutral-300 mb-1">{todayWorkout.grupo}</p>
                                             <p className="text-[11px] text-neutral-500 mb-1">{todayWorkout.duracao_min ? `${todayWorkout.duracao_min}min` : ''}{todayWorkout.local_manha && todayWorkout.local_manha.length ? ` · ${todayWorkout.local_manha.join('/')}` : ''}</p>
-                                            {todayWorkout.complemento_noite && <p className="text-[11px] text-neutral-500 mb-3">🌙 {todayWorkout.complemento_noite}</p>}
+                                            {todayWorkout.complemento_noite && <p className="text-[11px] text-neutral-500 mb-3">{todayWorkout.complemento_noite}</p>}
                                             <button onClick={() => startWorkout(todayWorkout.id)} className="w-full bg-red-600 py-3 rounded-lg font-bold flex justify-center gap-2 mt-2"><Icon name="Play" size={16} /> Iniciar treino</button>
                                         </div>
                                     ) : (
@@ -700,14 +4537,23 @@
 
                         {view === 'treinos' && (
                             <div className="space-y-3 fade-in">
+                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3 flex items-center justify-between gap-2">
+                                    <button onClick={() => changeWeek(currentWeek - 1)} disabled={currentWeek <= 1} className="w-9 h-9 rounded-lg bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 disabled:opacity-30"><Icon name="ChevronLeft" size={18} /></button>
+                                    <div className="text-center">
+                                        <p className="font-bold text-sm">Semana {currentWeek} de {TOTAL_SEMANAS}</p>
+                                        <p className="text-[10px] text-red-500 uppercase font-bold tracking-wide">{currentEtapa}</p>
+                                    </div>
+                                    <button onClick={() => changeWeek(currentWeek + 1)} disabled={currentWeek >= TOTAL_SEMANAS} className="w-9 h-9 rounded-lg bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 disabled:opacity-30"><Icon name="ChevronRight" size={18} /></button>
+                                </div>
                                 <div className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-3 text-[11px] text-neutral-400 flex gap-2">
                                     <Icon name="Info" size={13} className="text-red-500 shrink-0 mt-0.5" />
-                                    <span>Cardio diário: 20-30min (jejum ou pós-treino) · 15min nos dias com 2º estímulo à noite.</span>
+                                    <span>Musculação 5x/semana + corrida 3x/semana (planilha 3km). Toque em um dia com treino para iniciar.</span>
                                 </div>
-                                {workouts.map((w, i) => {
+                                {weekWorkouts.map((w, i) => {
                                     const isRest = !w.exercises || w.exercises.length === 0;
                                     if (isRest) return (
                                         <div key={w.id} className="w-full bg-neutral-900/50 border border-neutral-800 border-l-4 border-l-neutral-700 p-5 rounded-r-xl rounded-l-md">
+                                            <span className="text-[10px] text-neutral-600 uppercase font-bold">{w.dia}</span>
                                             <h3 className="font-bold text-sm text-neutral-400">{w.name}</h3>
                                             <p className="text-xs text-neutral-600 mt-1">{w.complemento}</p>
                                         </div>
@@ -715,9 +4561,10 @@
                                     return (
                                         <button key={w.id} onClick={() => startWorkout(w.id)} className={`w-full bg-neutral-900 border border-neutral-800 border-l-4 p-5 rounded-r-xl rounded-l-md flex justify-between items-center active:scale-[0.98] ${['border-l-red-500', 'border-l-orange-500'][i % 2]}`}>
                                             <div className="text-left overflow-hidden">
+                                                <span className="text-[10px] text-neutral-500 uppercase font-bold">{w.dia}</span>
                                                 <h3 className="font-bold text-sm truncate">{w.name}</h3>
                                                 <span className="text-xs text-neutral-500">{w.exercises.length} exercícios{w.duracao_min ? ` · ${w.duracao_min}min` : ''}</span>
-                                                {w.complemento_noite && <span className="block text-[10px] text-neutral-600 mt-0.5">🌙 {w.complemento_noite}</span>}
+                                                {w.complemento_noite && <span className="block text-[10px] text-neutral-600 mt-0.5">{w.complemento_noite}</span>}
                                             </div>
                                             <Icon name="Play" size={16} className="text-neutral-600" />
                                         </button>
@@ -974,7 +4821,6 @@
                             <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800">
                                 <h3 className="text-sm font-bold mb-2">Regras do coach (sempre válidas)</h3>
                                 <ul className="text-[11px] text-neutral-500 space-y-1 list-disc pl-4">
-                                    <li>Nunca incluir Tríceps Testa em nenhum treino</li>
                                     <li>Nunca recomendar TRT ou hormônios exógenos</li>
                                     <li>Nunca incentivar bulk agressivo</li>
                                     <li>Sempre alertar se déficit calórico passar de 500 kcal abaixo do TDEE</li>
