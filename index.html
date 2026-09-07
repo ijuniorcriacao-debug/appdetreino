@@ -21,6 +21,9 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23000000%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2270%22>💪</text></svg>">
 
     <!-- Bibliotecas Externas (Serão cacheadas pelo Service Worker) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Lexend:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -28,16 +31,26 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
+        :root { color-scheme: dark; }
+        body { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif; background: radial-gradient(120% 140% at 50% -10%, #1a1210 0%, #0a0a0b 45%, #050506 100%); background-attachment: fixed; }
+        h1, h2, h3, .font-display { font-family: 'Lexend', 'Manrope', ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.01em; }
         input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         .slide-in { animation: slideIn 0.3s ease-out forwards; }
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        .fade-in { animation: fadeIn 0.45s ease-out forwards; }
         @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.6; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        .accent-grad { background-image: linear-gradient(135deg, #f0483a, #f97316); box-shadow: 0 10px 25px -10px rgba(239,68,68,0.65); transition: filter .15s ease, transform .1s ease, box-shadow .15s ease; }
+        .accent-grad:hover { filter: brightness(1.08); box-shadow: 0 14px 30px -10px rgba(239,68,68,0.75); }
+        .accent-grad:active { transform: scale(0.98); }
+        .accent-text { background-image: linear-gradient(135deg, #f0483a, #f97316); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .card-soft { background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0) 40%), #131314; }
     </style>
 </head>
-<body class="bg-neutral-950 text-white font-sans selection:bg-red-600 selection:text-white">
+<body class="text-white selection:bg-red-500/40 selection:text-white">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -4074,10 +4087,10 @@
         };
 
         const StatTile = ({ label, value, sub, color }) => (
-            <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
-                <div className="text-[10px] uppercase tracking-wide text-neutral-500 font-bold mb-1">{label}</div>
-                <div className="text-xl font-bold" style={color ? { color } : undefined}>{value}</div>
-                {sub && <div className="text-[10px] text-neutral-500 mt-0.5">{sub}</div>}
+            <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4">
+                <div className="text-[10px] uppercase tracking-wide text-neutral-500 font-bold mb-1.5">{label}</div>
+                <div className="font-display text-2xl font-extrabold" style={color ? { color } : undefined}>{value}</div>
+                {sub && <div className="text-[10px] text-neutral-500 mt-1">{sub}</div>}
             </div>
         );
 
@@ -4124,14 +4137,15 @@
             { id: 'progresso', icon: 'TrendingUp', label: 'Progresso' },
         ];
         const BottomNav = ({ view, onChange }) => (
-            <div className="fixed bottom-0 inset-x-0 z-20 bg-neutral-950/95 backdrop-blur-md border-t border-red-900/30">
-                <div className="max-w-md mx-auto grid grid-cols-5">
+            <div className="fixed bottom-0 inset-x-0 z-20 px-3 pb-3">
+                <div className="max-w-md mx-auto bg-neutral-900/85 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl shadow-black/50 grid grid-cols-5 p-1.5">
                     {NAV_TABS.map(t => {
                         const active = view === t.id;
                         return (
-                            <button key={t.id} onClick={() => onChange(t.id)} className={`flex flex-col items-center gap-0.5 py-2 ${active ? 'text-red-500' : 'text-neutral-600'}`}>
-                                <Icon name={t.icon} size={20} />
-                                <span className="text-[10px] font-bold">{t.label}</span>
+                            <button key={t.id} onClick={() => onChange(t.id)} className={`relative flex flex-col items-center gap-0.5 py-2.5 rounded-2xl transition-colors ${active ? 'text-white' : 'text-neutral-500'}`}>
+                                {active && <span className="absolute inset-0 accent-grad rounded-2xl -z-10"></span>}
+                                <Icon name={t.icon} size={18} />
+                                <span className="text-[9px] font-bold">{t.label}</span>
                             </button>
                         );
                     })}
@@ -4443,37 +4457,40 @@
             const bottomNavVisible = view !== 'workout' && view !== 'config' && view !== 'login';
 
             if (view === 'login') return (
-                <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center p-6 fade-in">
-                    <div className="mb-8 text-red-600 animate-pulse"><Icon name="Dumbbell" size={64} /></div>
-                    <h1 className="text-3xl font-bold mb-2 text-center">O treino no jeito</h1>
-                    <p className="text-neutral-400 mb-8 text-center max-w-xs">App offline. Treino, nutrição, InBody e relatórios. Seus dados ficam no seu celular.</p>
-                    <form onSubmit={handleLogin} className="w-full max-w-xs space-y-4">
-                        <input type="text" value={tempName} onChange={e => setTempName(e.target.value)} placeholder="Seu Nome" className="w-full bg-neutral-900 border border-neutral-800 rounded-xl p-4 text-white focus:border-red-600 outline-none" autoFocus />
-                        <button type="submit" disabled={!tempName.trim()} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl disabled:opacity-50">Entrar</button>
+                <div className="min-h-screen flex flex-col items-center justify-center p-6 fade-in">
+                    <div className="w-20 h-20 rounded-3xl accent-grad flex items-center justify-center mb-7"><Icon name="Dumbbell" size={36} className="text-white" /></div>
+                    <h1 className="font-display text-3xl font-extrabold mb-2 text-center">O treino <span className="accent-text">no jeito</span></h1>
+                    <p className="text-neutral-400 mb-9 text-center max-w-xs text-sm leading-relaxed">App offline. Treino, nutrição, InBody e relatórios. Seus dados ficam no seu celular.</p>
+                    <form onSubmit={handleLogin} className="w-full max-w-xs space-y-3">
+                        <input type="text" value={tempName} onChange={e => setTempName(e.target.value)} placeholder="Seu nome" className="w-full card-soft border border-white/10 rounded-2xl shadow-xl shadow-black/30 p-4 text-white placeholder:text-neutral-600 focus:border-red-500/50 outline-none transition-colors" autoFocus />
+                        <button type="submit" disabled={!tempName.trim()} className="w-full accent-grad text-white font-bold py-4 rounded-2xl disabled:opacity-40 disabled:shadow-none">Entrar</button>
                     </form>
                 </div>
             );
 
             return (
-                <div className="min-h-screen bg-neutral-950 pb-28">
-                    <header className="sticky top-0 z-20 bg-neutral-950/90 backdrop-blur-md border-b border-red-900/30 p-4">
+                <div className="min-h-screen pb-32">
+                    <header className="sticky top-0 z-20 bg-neutral-950/75 backdrop-blur-xl border-b border-white/[0.06] p-4">
                         <div className="flex items-center justify-between max-w-md mx-auto">
                             {view === 'workout' ? (
                                 <>
-                                    <button onClick={() => setView('treinos')}><Icon name="ChevronLeft" /></button>
-                                    <h1 className="font-bold text-sm text-neutral-200 truncate ml-2">{activeWorkout ? `Treino ${activeWorkout.letra || ''} · ${activeWorkout.grupo || activeWorkout.name}` : 'Treino'}</h1>
-                                    <div className="w-6" />
+                                    <button onClick={() => setView('treinos')} className="w-9 h-9 -ml-1.5 rounded-full flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/5"><Icon name="ChevronLeft" size={20} /></button>
+                                    <h1 className="font-display font-bold text-sm text-neutral-100 truncate ml-2">{activeWorkout ? `Treino ${activeWorkout.letra || ''} · ${activeWorkout.grupo || activeWorkout.name}` : 'Treino'}</h1>
+                                    <div className="w-9" />
                                 </>
                             ) : view === 'config' ? (
                                 <>
-                                    <button onClick={() => setView('dashboard')}><Icon name="ChevronLeft" /></button>
-                                    <h1 className="font-bold text-sm text-neutral-200">Configurações</h1>
-                                    <div className="w-6" />
+                                    <button onClick={() => setView('dashboard')} className="w-9 h-9 -ml-1.5 rounded-full flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/5"><Icon name="ChevronLeft" size={20} /></button>
+                                    <h1 className="font-display font-bold text-sm text-neutral-100">Configurações</h1>
+                                    <div className="w-9" />
                                 </>
                             ) : (
                                 <>
-                                    <div className="flex items-center gap-2 text-red-600"><Icon name="Dumbbell" size={20} /><span className="text-white font-bold">Olá, {userName}</span></div>
-                                    <button onClick={() => setView('config')} className="text-neutral-400 hover:text-red-500"><Icon name="Settings" /></button>
+                                    <div className="flex items-center gap-2.5">
+                                        <div className="w-9 h-9 rounded-full accent-grad flex items-center justify-center shrink-0"><Icon name="Dumbbell" size={16} className="text-white" /></div>
+                                        <span className="font-display text-white font-bold">Olá, {userName}</span>
+                                    </div>
+                                    <button onClick={() => setView('config')} className="w-9 h-9 rounded-full flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/5"><Icon name="Settings" size={19} /></button>
                                 </>
                             )}
                         </div>
@@ -4485,7 +4502,7 @@
                             <div className="space-y-4 fade-in">
                                 {alerts.length > 0 && <div className="space-y-2">{alerts.map((a, i) => <AlertBanner key={i} level={a.level} text={a.text} />)}</div>}
 
-                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4">
                                     <div className="flex justify-between items-center mb-3">
                                         <h3 className="font-bold text-sm flex items-center gap-2"><Icon name="Dumbbell" size={16} className="text-red-500" /> Treino de hoje</h3>
                                         <span className="text-[10px] text-neutral-500">{WEEKDAY_NAMES[weekdayIdx]} · Semana {currentWeek}</span>
@@ -4495,7 +4512,7 @@
                                             <p className="text-sm text-neutral-300 mb-1">{todayWorkout.grupo}</p>
                                             <p className="text-[11px] text-neutral-500 mb-1">{todayWorkout.duracao_min ? `${todayWorkout.duracao_min}min` : ''}{todayWorkout.local_manha && todayWorkout.local_manha.length ? ` · ${todayWorkout.local_manha.join('/')}` : ''}</p>
                                             {todayWorkout.complemento_noite && <p className="text-[11px] text-neutral-500 mb-3">{todayWorkout.complemento_noite}</p>}
-                                            <button onClick={() => startWorkout(todayWorkout.id)} className="w-full bg-red-600 py-3 rounded-lg font-bold flex justify-center gap-2 mt-2"><Icon name="Play" size={16} /> Iniciar treino</button>
+                                            <button onClick={() => startWorkout(todayWorkout.id)} className="w-full accent-grad py-3 rounded-lg font-bold flex justify-center gap-2 mt-2"><Icon name="Play" size={16} /> Iniciar treino</button>
                                         </div>
                                     ) : (
                                         <p className="text-sm text-neutral-400">{(todayWorkout && todayWorkout.complemento) || 'Descanso ativo — caminhada leve, sem treino estruturado.'}</p>
@@ -4507,7 +4524,7 @@
                                     <StatTile label="% Gordura" value={latestGordura != null ? `${latestGordura}%` : '--'} sub={goals.gordura_alvo_min ? `Meta ${goals.gordura_alvo_min}-${goals.gordura_alvo_max}%` : ''} />
                                 </div>
 
-                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4">
                                     <div className="flex justify-between items-center mb-3">
                                         <h3 className="font-bold text-sm flex items-center gap-2"><Icon name="Utensils" size={16} className="text-red-500" /> Nutrição de hoje</h3>
                                         <button onClick={() => { loadNutriForm(today); setView('nutricao'); }} className="text-[11px] text-red-500 font-bold">Registrar</button>
@@ -4519,7 +4536,7 @@
                                     </div>
                                 </div>
 
-                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4">
                                     <h3 className="font-bold text-sm flex items-center gap-2 mb-3"><Icon name="Pill" size={16} className="text-red-500" /> Suplementos de hoje</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {supplements.map(s => {
@@ -4537,7 +4554,7 @@
 
                         {view === 'treinos' && (
                             <div className="space-y-3 fade-in">
-                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3 flex items-center justify-between gap-2">
+                                <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-3 flex items-center justify-between gap-2">
                                     <button onClick={() => changeWeek(currentWeek - 1)} disabled={currentWeek <= 1} className="w-9 h-9 rounded-lg bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 disabled:opacity-30"><Icon name="ChevronLeft" size={18} /></button>
                                     <div className="text-center">
                                         <p className="font-bold text-sm">Semana {currentWeek} de {TOTAL_SEMANAS}</p>
@@ -4548,6 +4565,16 @@
                                 <div className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-3 text-[11px] text-neutral-400 flex gap-2">
                                     <Icon name="Info" size={13} className="text-red-500 shrink-0 mt-0.5" />
                                     <span>Musculação 5x/semana + corrida 3x/semana (planilha 3km). Toque em um dia com treino para iniciar.</span>
+                                </div>
+                                <div className="grid grid-cols-2 gap-2.5">
+                                    <a href="https://chat.timehibrido.com.br/fcmax" target="_blank" rel="noopener noreferrer" className="card-soft border border-white/5 rounded-2xl p-3 flex items-center gap-2.5 active:scale-[0.98] transition-transform">
+                                        <div className="w-9 h-9 rounded-xl accent-grad flex items-center justify-center shrink-0"><Icon name="HeartPulse" size={17} className="text-white" /></div>
+                                        <div className="text-left overflow-hidden"><p className="text-xs font-bold truncate">Calculadora FCmáx</p><p className="text-[10px] text-neutral-500">Suas zonas de corrida</p></div>
+                                    </a>
+                                    <a href="https://chat.timehibrido.com.br/rm" target="_blank" rel="noopener noreferrer" className="card-soft border border-white/5 rounded-2xl p-3 flex items-center gap-2.5 active:scale-[0.98] transition-transform">
+                                        <div className="w-9 h-9 rounded-xl accent-grad flex items-center justify-center shrink-0"><Icon name="Weight" size={17} className="text-white" /></div>
+                                        <div className="text-left overflow-hidden"><p className="text-xs font-bold truncate">Calculadora 1RM</p><p className="text-[10px] text-neutral-500">Progressão de cargas</p></div>
+                                    </a>
                                 </div>
                                 {weekWorkouts.map((w, i) => {
                                     const isRest = !w.exercises || w.exercises.length === 0;
@@ -4579,7 +4606,7 @@
                             return (
                                 <div key={ex.id} className="relative">
                                     {isBiset && i < activeWorkout.exercises.length - 1 && activeWorkout.exercises[i + 1].note?.includes('BISET') && <div className="absolute left-8 mt-[3.5rem] w-1 h-8 bg-red-600/30"></div>}
-                                    <div className={`p-4 rounded-xl border relative z-10 ${isDone ? 'bg-red-950/20 border-red-900/30' : 'bg-neutral-900 border-neutral-800'}`}>
+                                    <div className={`p-4 rounded-2xl border relative z-10 ${isDone ? 'bg-red-950/20 border-red-900/30' : 'bg-neutral-900 border-neutral-800'}`}>
                                         {ex.note && <div className="mb-2"><span className="text-[10px] font-bold px-2 py-1 rounded bg-neutral-800 text-red-500 border border-red-900/30 whitespace-normal leading-tight block">{ex.note}</span></div>}
                                         <div className="flex justify-between mb-4"><div><h3 className={`font-bold ${isDone ? 'text-red-500/50 line-through' : 'text-neutral-200'}`}>{ex.name}</h3><span className="text-xs bg-neutral-950 px-2 py-0.5 rounded border border-neutral-800 text-neutral-400">{ex.sets}</span></div><button onClick={() => toggleExercise(ex.id)} className={isDone ? 'text-red-600' : 'text-neutral-600'}><Icon name={isDone ? 'CheckCircle' : 'Circle'} size={28} /></button></div>
                                         <div className={`grid grid-cols-[1fr,auto] gap-3 items-end ${isDone ? 'opacity-50 pointer-events-none' : ''}`}>
@@ -4593,7 +4620,7 @@
 
                         {view === 'nutricao' && (
                             <div className="space-y-4 fade-in">
-                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-3">
+                                <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4 space-y-3">
                                     <h3 className="font-bold text-sm flex items-center gap-2"><Icon name="Utensils" size={16} className="text-red-500" /> Registro diário</h3>
                                     <div>
                                         <label className="text-[10px] uppercase text-neutral-500 font-bold">Data</label>
@@ -4612,19 +4639,19 @@
                                     <div className="grid grid-cols-2 gap-3">
                                         <div>
                                             <label className="text-[10px] uppercase text-neutral-500 font-bold block mb-1">Humor</label>
-                                            <div className="flex gap-1">{[1, 2, 3, 4, 5].map(n => <button key={n} onClick={() => setNutriForm({ ...nutriForm, humor: n })} className={`flex-1 py-1.5 rounded text-xs font-bold ${nutriForm.humor === n ? 'bg-red-600' : 'bg-neutral-950 border border-neutral-800 text-neutral-500'}`}>{n}</button>)}</div>
+                                            <div className="flex gap-1">{[1, 2, 3, 4, 5].map(n => <button key={n} onClick={() => setNutriForm({ ...nutriForm, humor: n })} className={`flex-1 py-1.5 rounded text-xs font-bold ${nutriForm.humor === n ? 'accent-grad' : 'bg-neutral-950 border border-neutral-800 text-neutral-500'}`}>{n}</button>)}</div>
                                         </div>
                                         <div>
                                             <label className="text-[10px] uppercase text-neutral-500 font-bold block mb-1">Energia</label>
-                                            <div className="flex gap-1">{[1, 2, 3, 4, 5].map(n => <button key={n} onClick={() => setNutriForm({ ...nutriForm, energia: n })} className={`flex-1 py-1.5 rounded text-xs font-bold ${nutriForm.energia === n ? 'bg-red-600' : 'bg-neutral-950 border border-neutral-800 text-neutral-500'}`}>{n}</button>)}</div>
+                                            <div className="flex gap-1">{[1, 2, 3, 4, 5].map(n => <button key={n} onClick={() => setNutriForm({ ...nutriForm, energia: n })} className={`flex-1 py-1.5 rounded text-xs font-bold ${nutriForm.energia === n ? 'accent-grad' : 'bg-neutral-950 border border-neutral-800 text-neutral-500'}`}>{n}</button>)}</div>
                                         </div>
                                     </div>
                                     <div><label className="text-[10px] uppercase text-neutral-500 font-bold">Sono (horas)</label><input type="number" step="0.5" value={nutriForm.sono_horas} onChange={e => setNutriForm({ ...nutriForm, sono_horas: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
                                     <div><label className="text-[10px] uppercase text-neutral-500 font-bold">Observações</label><textarea value={nutriForm.observacoes} onChange={e => setNutriForm({ ...nutriForm, observacoes: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1 h-16" /></div>
-                                    <button onClick={saveNutriForm} className="w-full bg-red-600 py-3 rounded-lg font-bold">Salvar registro</button>
+                                    <button onClick={saveNutriForm} className="w-full accent-grad py-3 rounded-lg font-bold">Salvar registro</button>
                                 </div>
 
-                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4">
                                     <h3 className="font-bold text-sm mb-3">Metas do protocolo</h3>
                                     <div className="grid grid-cols-2 gap-2 text-xs">
                                         <div className="flex justify-between"><span className="text-neutral-500">Proteína</span><span className="font-bold">{goals.meta_proteina_min}-{goals.meta_proteina_max}g</span></div>
@@ -4635,7 +4662,7 @@
                                     </div>
                                 </div>
 
-                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4">
                                     <h3 className="font-bold text-sm mb-3">Últimos registros</h3>
                                     <div className="space-y-2">
                                         {Object.keys(dailyLogs).sort().reverse().slice(0, 14).map(d => {
@@ -4656,10 +4683,10 @@
 
                         {view === 'inbody' && (
                             <div className="space-y-4 fade-in">
-                                {!inbodyForm && <button onClick={startNewInbody} className="w-full bg-red-600 py-3 rounded-lg font-bold flex justify-center gap-2"><Icon name="Plus" size={16} /> Nova avaliação InBody</button>}
+                                {!inbodyForm && <button onClick={startNewInbody} className="w-full accent-grad py-3 rounded-lg font-bold flex justify-center gap-2"><Icon name="Plus" size={16} /> Nova avaliação InBody</button>}
 
                                 {inbodyForm && (
-                                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-3">
+                                    <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4 space-y-3">
                                         <h3 className="font-bold text-sm">Nova avaliação</h3>
                                         <div><label className="text-[10px] uppercase text-neutral-500 font-bold">Data</label><input type="date" value={inbodyForm.data} onChange={e => setInbodyForm({ ...inbodyForm, data: e.target.value })} className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-sm mt-1" /></div>
                                         <div className="grid grid-cols-2 gap-3">
@@ -4668,14 +4695,14 @@
                                             ))}
                                         </div>
                                         <div className="flex gap-2">
-                                            <button onClick={saveInbodyForm} className="flex-1 bg-red-600 py-2.5 rounded-lg font-bold">Salvar</button>
+                                            <button onClick={saveInbodyForm} className="flex-1 accent-grad py-2.5 rounded-lg font-bold">Salvar</button>
                                             <button onClick={() => setInbodyForm(null)} className="flex-1 bg-neutral-800 py-2.5 rounded-lg font-bold text-neutral-400">Cancelar</button>
                                         </div>
                                     </div>
                                 )}
 
                                 {inbody.length > 0 && (
-                                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-4">
+                                    <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4 space-y-4">
                                         <h3 className="font-bold text-sm">Evolução</h3>
                                         <div><span className="text-xs text-neutral-500 font-bold">Peso (kg)</span><Chart series={inbody.map(a => ({ date: a.data, value: a.peso }))} color={COLORS.blue} unit="kg" target={{ min: goals.peso_alvo_min, max: goals.peso_alvo_max }} /></div>
                                         <div><span className="text-xs text-neutral-500 font-bold">% Gordura</span><Chart series={inbody.map(a => ({ date: a.data, value: a.percentual_gordura }))} color={COLORS.orange} unit="%" target={{ min: goals.gordura_alvo_min, max: goals.gordura_alvo_max }} /></div>
@@ -4686,7 +4713,7 @@
                                 )}
 
                                 {inbody.length >= 2 && (
-                                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-3">
+                                    <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4 space-y-3">
                                         <h3 className="font-bold text-sm">Comparativo</h3>
                                         <div className="grid grid-cols-2 gap-2">
                                             <select value={compareA || ''} onChange={e => setCompareA(e.target.value)} className="bg-neutral-950 border border-neutral-800 rounded-lg p-2 text-xs">
@@ -4716,7 +4743,7 @@
                                 <div className="space-y-2">
                                     <h3 className="font-bold text-sm px-1">Histórico</h3>
                                     {[...inbody].reverse().map(a => (
-                                        <div key={a.id} className="bg-neutral-900 border border-neutral-800 rounded-xl p-3 flex justify-between items-center">
+                                        <div key={a.id} className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-3 flex justify-between items-center">
                                             <div>
                                                 <p className="text-sm font-bold">{fmtBR(a.data)}</p>
                                                 <p className="text-[11px] text-neutral-500">{a.peso}kg · {a.percentual_gordura}% gordura · visceral {a.gordura_visceral}</p>
@@ -4732,11 +4759,11 @@
                             <div className="space-y-4 fade-in">
                                 <div className="flex gap-2">
                                     {[7, 30, 90].map(p => (
-                                        <button key={p} onClick={() => setReportPeriod(p)} className={`flex-1 py-2 rounded-lg text-xs font-bold ${reportPeriod === p ? 'bg-red-600' : 'bg-neutral-900 border border-neutral-800 text-neutral-500'}`}>{p} dias</button>
+                                        <button key={p} onClick={() => setReportPeriod(p)} className={`flex-1 py-2 rounded-lg text-xs font-bold ${reportPeriod === p ? 'accent-grad' : 'bg-neutral-900 border border-neutral-800 text-neutral-500'}`}>{p} dias</button>
                                     ))}
                                 </div>
 
-                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4">
                                     <h3 className="font-bold text-sm mb-3 flex items-center gap-2"><Icon name="ClipboardList" size={16} className="text-red-500" /> Relatório · últimos {reportPeriod} dias</h3>
                                     <div className="grid grid-cols-2 gap-3 mb-3">
                                         <StatTile label="Adesão nutrição" value={`${daysWithLog}/${reportPeriod}`} sub="dias registrados" />
@@ -4747,7 +4774,7 @@
                                     {pesoSeries.length > 0 && <div><span className="text-xs text-neutral-500 font-bold">Peso no período</span><Chart series={pesoSeries} color={COLORS.blue} unit="kg" /></div>}
                                 </div>
 
-                                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                                <div className="card-soft border border-white/5 rounded-2xl shadow-xl shadow-black/30 p-4">
                                     <h3 className="font-bold text-sm mb-3 flex items-center gap-2"><Icon name="TrendingUp" size={16} className="text-red-500" /> Progressão de carga</h3>
                                     {exerciseNames.length > 0 ? (
                                         <>
@@ -4762,7 +4789,7 @@
                         )}
 
                         {view === 'config' && <div className="slide-in space-y-4">
-                            <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800 space-y-3">
+                            <div className="bg-neutral-900 p-4 rounded-2xl border border-neutral-800 space-y-3">
                                 <div className="flex justify-between items-center">
                                     <h3 className="text-sm font-bold">Perfil e metas</h3>
                                     {!profileDraft && <button onClick={startEditProfile} className="text-[11px] text-red-500 font-bold">Editar</button>}
@@ -4793,14 +4820,14 @@
                                             <input type="number" value={profileDraft.meta_proteina_max} onChange={e => setProfileDraft({ ...profileDraft, meta_proteina_max: e.target.value })} placeholder="Proteína máx (g)" className="bg-neutral-950 border border-neutral-800 rounded p-2 text-sm" />
                                         </div>
                                         <div className="flex gap-2">
-                                            <button onClick={saveProfileDraft} className="flex-1 bg-red-600 py-2 rounded font-bold text-sm">Salvar</button>
+                                            <button onClick={saveProfileDraft} className="flex-1 accent-grad py-2 rounded font-bold text-sm">Salvar</button>
                                             <button onClick={() => setProfileDraft(null)} className="flex-1 bg-neutral-800 py-2 rounded font-bold text-sm text-neutral-400">Cancelar</button>
                                         </div>
                                     </div>
                                 )}
                             </div>
 
-                            <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800 space-y-3">
+                            <div className="bg-neutral-900 p-4 rounded-2xl border border-neutral-800 space-y-3">
                                 <h3 className="text-sm font-bold">Suplementos</h3>
                                 <div className="space-y-2">
                                     {supplements.map(s => (
@@ -4818,7 +4845,7 @@
                                 <button onClick={addSupplement} className="w-full bg-neutral-800 py-2 rounded text-xs font-bold text-neutral-300">+ Adicionar suplemento</button>
                             </div>
 
-                            <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800">
+                            <div className="bg-neutral-900 p-4 rounded-2xl border border-neutral-800">
                                 <h3 className="text-sm font-bold mb-2">Regras do coach (sempre válidas)</h3>
                                 <ul className="text-[11px] text-neutral-500 space-y-1 list-disc pl-4">
                                     <li>Nunca recomendar TRT ou hormônios exógenos</li>
@@ -4829,7 +4856,7 @@
                                 </ul>
                             </div>
 
-                            <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800"><h3 className="text-sm font-bold mb-2">Importar treinos</h3><textarea value={importText} onChange={e => setImportText(e.target.value)} className="w-full h-32 bg-neutral-950 border border-neutral-800 rounded p-2 text-sm mb-2" placeholder="Cole aqui..." /><button onClick={processImport} className="w-full bg-red-600 py-2 rounded font-bold">Processar</button></div>
+                            <div className="bg-neutral-900 p-4 rounded-2xl border border-neutral-800"><h3 className="text-sm font-bold mb-2">Importar treinos</h3><textarea value={importText} onChange={e => setImportText(e.target.value)} className="w-full h-32 bg-neutral-950 border border-neutral-800 rounded p-2 text-sm mb-2" placeholder="Cole aqui..." /><button onClick={processImport} className="w-full accent-grad py-2 rounded font-bold">Processar</button></div>
                             <button onClick={resetToDefault} className="w-full bg-neutral-800 py-3 rounded text-neutral-400 font-bold flex justify-center gap-2"><Icon name="RotateCcw" /> Restaurar Protocolo Padrão</button>
                             <button onClick={handleLogout} className="w-full border border-neutral-800 py-3 rounded text-neutral-400 font-bold flex justify-center gap-2"><Icon name="LogOut" /> Sair</button>
                             <button onClick={handleFullReset} className="w-full border border-red-900/30 text-red-800 py-3 rounded font-bold flex justify-center gap-2"><Icon name="Trash2" /> Reset Total</button>
@@ -4837,7 +4864,7 @@
 
                     </main>
 
-                    {view === 'workout' && <div className="fixed bottom-0 w-full p-4 bg-neutral-950/90 border-t border-red-900/30 backdrop-blur-md z-20"><div className="max-w-md mx-auto"><button onClick={finishWorkout} className="w-full bg-red-600 py-3.5 rounded-xl font-bold flex justify-center gap-2 shadow-lg shadow-red-900/20"><Icon name="Save" size={18} /> Salvar Treino</button></div></div>}
+                    {view === 'workout' && <div className="fixed bottom-0 w-full p-4 bg-neutral-950/90 border-t border-red-900/30 backdrop-blur-md z-20"><div className="max-w-md mx-auto"><button onClick={finishWorkout} className="w-full accent-grad py-3.5 rounded-2xl font-bold flex justify-center gap-2 shadow-lg shadow-red-900/20"><Icon name="Save" size={18} /> Salvar Treino</button></div></div>}
                     {bottomNavVisible && <BottomNav view={view} onChange={setView} />}
                     {timerOpen && <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"><div className="bg-neutral-900 w-full max-w-sm p-6 rounded-2xl border border-neutral-800"><div className="flex justify-between mb-6"><h3 className="text-neutral-400">Descanso</h3><button onClick={closeTimer}><Icon name="Trash2" /></button></div><div className="text-center mb-8"><span className="text-7xl font-mono font-bold">{Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? '0' : ''}{timeLeft % 60}</span></div><div className="grid grid-cols-4 gap-2 mb-4">{[30, 45, 60, 90].map(t => <button key={t} onClick={() => startTimer(t)} className="bg-neutral-800 py-2 rounded text-xs font-bold">{t}s</button>)}</div><button onClick={() => setTimerRunning(!timerRunning)} className={`w-full py-3 rounded font-bold mb-2 ${timerRunning ? 'bg-neutral-800' : 'bg-green-600'}`}>{timerRunning ? 'Pausar' : 'Continuar'}</button><button onClick={() => startTimer(timeLeft + 10)} className="w-full py-3 rounded font-bold bg-neutral-950 border border-neutral-800">+10s</button></div></div>}
                 </div>
